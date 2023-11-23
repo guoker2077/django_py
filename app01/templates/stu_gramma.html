@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学习模板语法</title>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-3.4.1/css/bootstrap-theme.css' %}">
+</head>
+<body>
+<h1>模板语法的学习</h1>
+<div>{{ n1 }}</div>
+<div>{{ n2 }}</div>
+
+{#列表取值#}
+<div>{{ n2.0 }}</div>
+<div>{{ n2.1 }}</div>
+<div>{{ n2.2 }}</div>
+
+{# for 循环#}
+<div>
+    {% for item in n2 %}
+        <span>{{ item }}</span>
+    {% endfor  %}
+</div>
+
+<hr/>
+{{ n3 }}
+{{ n3.name }}
+{{ n3.salary }}
+{{ n3.role }}
+
+{# 字典取值 #}
+<ul>
+    {% for k,v in n3.items %}
+    <li>{{ k }} : {{ v }}</li>
+    {% endfor %}
+
+</ul>
+
+{# 列表字典的混合结构 #}
+
+{{ n4 }}
+{{ n4.0.name }}
+
+{% for f in n4 %}
+<div>{{ f.name }},{{ f.salary }},{{ f.role }}</div>
+{% endfor %}
+
+{# if #}
+{% if n1 == "张俊杰" %}
+    <span style="color: red">right</span>
+    {% elif n1 == 2 %}
+    <span style="color: red">2</span>
+
+    {% else %}
+{% endif %}
+
+{#<img src="/static/p1.png">#}
+
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-3.4.1/js/bootstrap.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>news</title>
+</head>
+<body>
+<h1> 新闻站</h1>
+<ul>
+    {% for it in data_list.data.adList.0.item %}
+        <li><span> {{ it }}</span></li>
+    {% endfor %}
+
+
+</ul>
+</body>
+</html>
