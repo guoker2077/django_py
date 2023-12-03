@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Add</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <style>
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            25% { opacity: 1; }
+            75% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .row {
+            height: 100%;
+        }
+        .left-side {
+            background-color: #FFFFDB; /* 用您上传的图片颜色替换 */
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .right-side {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn-custom {
+            background-color: #6f42c1; /* 按钮紫色背景 */
+            border: none;
+            color: white; /* 字体颜色 */
+            margin: 0 10px; /* 两边的间距 */
+            width: 150px; /* 按钮宽度 */
+            transition: background-color 0.3s ease; /* 平滑过渡效果 */
+        }
+        .btn-custom:hover {
+            background-color: #5a36a3; /* 鼠标悬停时的颜色 */
+        }
+        .animated-text {
+            color: #8B5E3C; /* 根据您的图片颜色选择的互补色 */
+            font-size: 2.5em;
+            animation: fadeInOut 5s infinite;
+        }
+        .text-row {
+            margin-bottom: 20px; /* 文本行间距 */
+            font-size: 2.5em;
+        }
+         /* 模态框样式 */
+    .modal-content {
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+        padding: 1rem;
+        border-bottom: none;
+        background-color: #f7f7f7;
+    }
+
+    .modal-body {
+        padding: 1rem 2rem;
+    }
+
+    .modal-footer {
+        border-top: none;
+        padding: 1rem;
+    }
+
+    /* 输入框样式 */
+    .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        margin-bottom: 1rem;
+        box-shadow: none;
+        transition: border-color 0.15s ease-in-out;
+    }
+
+    .form-control:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: none;
+    }
+
+    /* 按钮样式 */
+    .btn {
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        transition: background-color 0.15s ease-in-out;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    /* 调整关闭按钮样式 */
+    .close {
+        color: #000;
+        text-shadow: none;
+        opacity: 1;
+    }
+
+    /* 调整标题样式 */
+    .modal-title {
+        color: #495057;
+        font-weight: normal;
+        font-size: 1.25rem;
+    }
+    /* 使模态框垂直居中 */
+        .modal-dialog {
+            display: flex;
+            align-items: center;
+            min-height: calc(100vh - 1rem); /* 100%的视口高度减去一些空间 */
+        }
+
+        /* 调整模态框内部元素样式 */
+        .modal-content {
+            padding: 2rem;
+            border-radius: 8px; /* 圆角 */
+        }
+
+        /* 使输入框宽度相同并对齐 */
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: 100%; /* 宽度调整为100% */
+        }
+
+        .welcome-text {
+            font-size: 1.5rem; /* 欢迎文字大小 */
+            margin-bottom: 2rem; /* 与表单项的间距 */
+            font-weight: normal; /* 如果需要，可以设置为 bold */
+            text-align: center; /* 文本居中 */
+        }
+
+        /* 调整表单项样式 */
+        .form-group {
+            margin-bottom: 1rem; /* 间距调整 */
+        }
+
+        /* 调整按钮样式 */
+        .modal-footer .btn {
+            width: auto; /* 按钮宽度调整为自动 */
+            padding: 0.375rem 0.75rem; /* 按钮内边距 */
+        }
+
+    </style>
+</head>
+<body>
+<!-- 显示消息 -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-md-7 left-side">
+                <div>
+                    <div class="animated-text">Build The World:</div>
+                    <div class="animated-text" style="animation-delay: 2.5s;">technology changes life</div>
+                </div>
+            </div>
+
+        <!-- 登录/注册按钮 -->
+        <div class="col-5 right-side">
+                <h3 class="text-row">Get started</h3>
+                <div>
+                    <button type="button" class="btn btn-custom" data-toggle="modal" data-target="#loginModal">登录</button>
+                    <button type="button" class="btn btn-custom" data-toggle="modal" data-target="#registerModal">注册</button>
+                </div>
+
+        <!-- 登录模态框 -->
+<div class="modal" id="loginModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">登录</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="welcome-text">Welcome back</div>
+                <div id="login-options">
+                    <button type="button" class="btn btn-link" onclick="showLoginForm()">用户名登录</button>
+                    <button type="button" class="btn btn-link" onclick="showPhoneForm()">手机号登录</button>
+                </div>
+
+                <!-- 用户名登录表单 -->
+                <div id="login-form" style="display:none;">
+                    <form method="post" action="/user/add/">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ login_form.username.label_tag }}
+                            {{ login_form.username }}
+                        </div>
+                        <div class="form-group">
+                            {{ login_form.password.label_tag }}
+                            {{ login_form.password }}
+                        </div>
+                        <input type="hidden" name="action" value="login">
+                        <button type="submit" class="btn btn-primary">登录</button>
+                    </form>
+                </div>
+
+                <!-- 手机号登录表单 -->
+                <div id="phone-form" style="display:none;">
+                    <form method="post" action="/user/add/">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="phone">手机号:</label>
+                            <input type="text" class="form-control" id="phone" name="phone" required>
+                        </div>
+                   <div class="form-group">
+                        <label for="code">验证码:</label>
+                       <input type="text" class="form-control" id="code" name="code" required>
+                        <button type="button" class="btn btn-primary" id="get-code" onclick="sendCode()">获取验证码</button>
+                    </div>
+                    <input type="hidden" name="action" value="phone_login">
+                    <button type="submit" class="btn btn-primary">登录</button>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+// 发送验证码的逻辑
+    function sendCode() {
+        var button = document.getElementById('get-code');
+        button.disabled = true; // 禁用按钮
+        var counter = 60;
+        button.innerText = `重新发送 (${counter}s)`;
+
+        // 每秒更新文本
+        var interval = setInterval(function() {
+            counter--;
+            if (counter <= 0) {
+                clearInterval(interval);
+                button.innerText = '发送验证码';
+                button.disabled = false; // 启用按钮
+            } else {
+                button.innerText = `重新发送 (${counter}s)`;
+            }
+        }, 1000);
+        }
+        // TODO: 发送验证码到用户手机的逻辑
+        // 您需要调用后端 API 发送验证码
+
+    function showLoginForm() {
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('phone-form').style.display = 'none';
+    }
+
+    function showPhoneForm() {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('phone-form').style.display = 'block';
+    }
+</script>
+
+        <!-- 注册模态框 -->
+        <div class="modal" id="registerModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">注册</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="/user/add/">
+                            {% csrf_token %}
+                            {{ register_form.as_p }}
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-secondary">注册</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         </div>
+        </div>
+    </div>
+
+
+
+    </div>
+
+    <!-- 引入 Bootstrap JS 和依赖 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
