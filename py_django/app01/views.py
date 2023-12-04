@@ -39,12 +39,13 @@ def user_add(request):
             except json.JSONDecodeError:
                 # 如果不是有效的 JSON，可能是普通的表单请求
                 # 在这里处理表单逻辑
+                print("is in json.JSONDecodeError")
                 action = request.POST.get('action')
         else:
             # 如果请求体为空，处理为普通表单请求
             action = request.POST.get('action')
 
-        if request.POST.get('action') == 'login':
+        if action == 'login':
             print("is in login")
             form = LoginForm(request.POST)
             if form.is_valid():
@@ -67,47 +68,46 @@ def user_add(request):
             print("is in register")
             form = RegisterForm(request.POST)
 
-            if form.is_valid():
-                print("is in valid")
-                username = form.cleaned_data['username']
 
-                password = form.cleaned_data['password']
+            print("is in valid")
+            # 从 JSON 数据中提取注册信息
+            username = data.get('username')
+            password = data.get('password')
+            phone = data.get('phone')
+            input_code = data.get('code')
 
-                phone = form.cleaned_data['phone']
+            # 从缓存中获取正确的验证码
 
-                input_code = form.cleaned_data['code']  # 假设表单中有一个名为 'code' 的字段
+            correct_code = cache.get(phone)
+            print("phone is ",phone)
+            print("input_code is ",input_code)
+            print("username is ",username)
+            print("password is ",password)
+            print("correct_code is ",correct_code)
+            # 检查验证码是否正确
+            print("has sent code")
+            if correct_code is None or str(correct_code) != input_code:
+                print("验证码错误")
+                return JsonResponse({'error': '验证码错误'}, status=400)
+            print("验证码正确")
+            # 创建用户逻辑
 
-                # 从缓存中获取正确的验证码
+            # 创建auth_user记录
+            user = User.objects.create_user(username=username, password=password)
 
-                correct_code = cache.get(phone)
+            # 创建app01_userinfo记录
+            userinfo = UserInfo(user=user, phone=phone)
+            # 您可以在此添加任何其他字段，例如：userinfo.name = 'Your Name'
+            userinfo.save()
 
-                # 检查验证码是否正确
-                print("has sent code")
-                if correct_code is None or str(correct_code) != input_code:
-                    print("验证码错误")
-                    return JsonResponse({'error': '验证码错误'}, status=400)
-                print("验证码正确")
-                # 创建用户逻辑
-
-                # 创建auth_user记录
-                user = User.objects.create_user(username=username, password=password)
-
-                # 创建app01_userinfo记录
-                userinfo = UserInfo(user=user, phone=phone)
-                # 您可以在此添加任何其他字段，例如：userinfo.name = 'Your Name'
-                userinfo.save()
-
-                return JsonResponse({'message': '注册成功'})
+            return JsonResponse({'message': '注册成功'})
 
 
-            else:
-                print("表单验证失败")
-                # 表单验证失败逻辑
-                print(form.errors)  # 打印表单错误信息
-                return JsonResponse({'error': '表单数据无效', 'form_errors': form.errors}, status=400)
+
+
         elif action == 'send_code':
             print("send code")
-            phone_number = request.POST.get('phone')
+            phone_number = data.get('phone')
 
             # 检查是否已发送过验证码且在10分钟内
             last_sent_time = cache.get(f"{phone_number}_sent_time")

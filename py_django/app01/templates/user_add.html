@@ -306,12 +306,12 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">手机号:</label>
-                        <input type="text" class="form-control" id="phone" name="phone" required>
+                        <input type="text" class="form-control" id="register-phone" name="register-phone" required>
                     </div>
                     <div class="form-group">
                         <label for="code">验证码:</label>
                         <div id="code-error" class="error-message"></div>
-                        <input type="text" class="form-control" id="code" name="code" required>
+                        <input type="text" class="form-control" id="register-code" name="register-code" required>
                         <button type="button" class="btn btn-primary" id="get-code-reg" onclick="sendCodeReg()">获取验证码</button>
                     </div>
                     <button type="submit" class="btn btn-secondary">注册</button>
@@ -330,10 +330,10 @@
 
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
-        var phone = document.getElementById('phone').value;
-        var code = document.getElementById('code').value;
+        var phone = document.getElementById('register-phone').value;
+        var code = document.getElementById('register-code').value;
 
-        var url = ''; // 修改为实际的 URL
+        var url = '/user/add/'; // 修改为实际的 URL
 
         fetch(url, {
             method: 'POST',
@@ -367,9 +367,9 @@
 
     // 发送验证码的逻辑
     function sendCodeReg() {
-        var phone = document.getElementById('phone').value; // 获取用户输入的手机号
-        var url = ''; // 修改为实际的 URL
-
+        var phone = document.getElementById('register-phone').value; // 获取用户输入的手机号
+        var url = '/user/add/'; // 修改为实际的 URL
+        console.log(phone); // 这应该打印出输入的手机号码
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({
