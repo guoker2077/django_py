@@ -1,0 +1,65 @@
+body {
+    background-color: rgba(173, 216, 230, 0.9); /* 使用 rgba 表示浅蓝色，0.5 为透明度 */
+    margin: 0; /* 可以去除默认的 body 外边距 */
+}
+
+.ml-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: 30px;
+}
+
+.ml-box{
+    position: relative;
+}
+/* 头像下面的小三角*/
+.ml-box-inner::after{
+    display: none;
+    content: '';
+    width: 0;
+    height: 0;
+/*    设置四个方向的边框*/
+    border: 10px solid transparent;
+/*    去除上边框*/
+    border-top:none ;
+/*    设置下边框的颜色*/
+    border-bottom-color:rgba(255, 255, 255, 0.8);
+    /*设置绝对定位*/
+    position: absolute;
+    bottom: -5px;
+    right: 0;
+
+
+}
+.header-actions-action.header-actions-action--cta {
+    margin-left: 20px;
+}
+.header-actions-action.header-actions-action--cta a {
+    font-size: 13px !important; /* Set the font size to 12px */
+}
+
+
+
+/*展示信息 */
+.ml-info {
+    display: none;
+    position: absolute;
+    top: 125%; /* 放置在头像下方 */
+    right: -100px;
+    /*left: 0;*/
+    /*margin: 0 auto;*/
+    /*bottom: 10px;*/
+    width: 200px;
+    padding: 10px;
+    /*border: 1px white solid ;*/
+    background-color: rgba(173, 216, 230, 1); /* RGBA表示法 */;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    border-radius: 7%;
+    z-index: 1; /* 确保信息框位于其他元素之上 */
+}
+
+.ml-profile-card:hover .ml-box-inner::after,
+.ml-profile-card:hover .ml-info {
+    display: table;
+}

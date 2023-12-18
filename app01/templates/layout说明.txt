@@ -1,0 +1,32 @@
+
+ 1. 修改头像那个
+ {% block avatar %}
+                                <div class="ml-profile-card" id="ml-profileCard">
+                                    <div class="ml-box">
+                                        <div class="ml-box-inner">
+                                            <img src="{% static 'img/head_sculpture01.png' %}" alt="Avatar"
+                                                 class="ml-avatar"
+                                                 id="ml-avatar">
+                                        </div>
+
+                                        <div class="ml-info" id="ml-info">
+
+                                            <p>你的名字</p>
+                                            <p>你的职业</p>
+                                        </div>
+                                    </div>
+                                </div>
+{% endblock %}
+
+2. 修改登录退出
+
+{#                 sign 模块#}
+{% block sign %}
+    <div class="header-actions-action header-actions-action--cta"
+          data-animation-role="header-element">
+           <a class="btn btn--border theme-btn--primary-inverse sqs-button-element--primary"
+                href="https://webui.graviti.com/api/login">
+                        SIGN IN
+            </a>
+    </div>
+{% endblock %}

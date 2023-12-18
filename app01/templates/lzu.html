@@ -1,0 +1,201 @@
+<!--A Design by W3layouts Author: W3layout Author URL: http://w3layouts.com License: Creative Commons Attribution 3.0 Unported License URL: http://creativecommons.org/licenses/by/3.0/-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="网络准入认证系统"/>
+    <title>兰州大学</title>
+    <link type="images/x-icon" rel="shortcut icon" href="http://10.10.0.166/static/images/basic/favicon.ico">
+    <link rel="stylesheet" href="http://10.10.0.166/static/lzu/css/pc.css">
+    <!--[if lt IE 9]>
+    <script src="http://10.10.0.166/static/lzu/lib/PIE.js"></script>
+    <style type="text/css">
+        body {
+            filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://10.10.0.166/static/lzu/images/background.jpg', sizingMethod='scale');
+        }
+
+        .login-panel,
+        .section input,
+        .section button {
+            behavior: url(http://10.10.0.166/static/lzu/lib/PIE.htc);
+        }
+
+        .section input {
+            line-height: 40px;
+        }
+    </style>
+    <![endif]-->
+    <script src="http://10.10.0.166/static/js/device.min.js"></script>
+    <script>
+        var isIPV6 = false;
+        var portal = {
+            "AuthIP": "",
+            "AuthIP6": "",
+            "ServiceIP": "http://10.10.0.166:8800",
+            "DoubleStackPC": false,
+            "DoubleStackMobile": false,
+            "AuthMode": false,
+            "CloseLogout": false,
+            "MacAuth": true,
+            "RedirectUrl": true,
+            "OtherPCStack": "IPV4",
+            "OtherMobileStack": "IPV4",
+            "MsgApi": "new",
+            "PublicSuccessPages": false,
+            "TrafficCarry": 1024,
+            "UserAgreeSwitch": false,
+            "DialSwitch": false,
+            "MultiAuthSwitch": false
+        };
+        var success = true;
+        var lang = "zh-CN" || "zh-CN";
+        var isLogin = true;
+
+        if (portal.CloseLogout) {
+            window.addEventListener("beforeunload", function (e) {
+                var confirmationMessage = "网络连接将被断开！";
+                (e || window.event).returnValue = confirmationMessage;
+                return confirmationMessage;
+            });
+            window.addEventListener("onUnload", function (e) {
+                if (isLogin) {
+                    document.getElementById("logout").click();
+                }
+            });
+        }
+
+        if (device.mobile() && !portal.PublicSuccessPages) {
+            locationURI("/srun_portal_success_mobile")
+        }
+
+        function locationURI(uri) {
+            return location.href = uri + location.search;
+        }
+    </script>
+</head>
+
+<body>
+
+
+<div class="login-panel">
+
+    <div class="header">
+        <img class="logo" src="http://10.10.0.166/static/lzu/images/logo.png" alt="logo">
+        <h1 class="title">统一身份认证</h1>
+        <div class="lang">
+            <span class="zh" id="zh">中文</span>
+            <span class="en" id="en">English</span>
+        </div>
+    </div>
+
+    <div class="section">
+            <form id="login-form" method="post" enctype="multipart/form-data" class="needs-validation">
+                {% csrf_token %}
+                <!-- 头像预览 -->
+                <div class="form-group text-center">
+                    <label for="avatar" class="form-label">头像</label>
+                    <!-- 使用img标签来预览头像 -->
+                    <img class="avatar-preview mb-3" id="avatar-preview"
+                         src="{{ data_avatar|default:'default-avatar.png' }}"
+                         alt="Avatar Preview" style="width: 300px; height: auto; display: none;">
+
+                    <input type="file" class="form-control-file no-file-label" id="avatar" name="avatar"
+                           accept="image/*"
+                           onchange="previewFile()" style="display: none;">
+                    <div>
+                        <button type="button" class="btn btn-link" onclick="document.getElementById('avatar').click();">
+                            选择头像
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 提交按钮 -->
+                <div class="form-group">
+                    <button type="button" class="btn btn-custom btn-block" onclick="ProFile()">保存修改</button>
+                </div>
+
+                <!-- 图片预览，初始时隐藏 -->
+                <img id="outputImage" src="" alt="Processed Image" style="display: none; width: 300px; height: auto;">
+
+                <!-- 下载链接，初始时隐藏 -->
+                <a id="downloadLink" href="" download style="display: none;">下载图片</a>
+            </form>
+        <div class="row">
+            <button type="button" class="logout" id="logout-dm">注销</button>
+        </div>
+        <div class="row func">
+
+
+        </div>
+        <div class="row func">
+
+            <a class="option" href="#" id="self-service">自助服务</a>
+
+
+            <a class="option" href="javascript:void(0);" onclick="locationURI('/srun_portal_sms')">短信认证</a>
+
+
+            <a class="option" href="http://a.lzu.edu.cn" target="_blank">网费充值</a>
+            <a class="option" href="#"></a>
+        </div>
+    </div>
+
+    <div class="notice-heading">
+        <div class="footer notice" id="notice-content"></div>
+    </div>
+</div>
+
+
+<div id="pageLoading">
+    <div class="sk-cube-grid">
+        <div class="sk-cube sk-cube1"></div>
+        <div class="sk-cube sk-cube2"></div>
+        <div class="sk-cube sk-cube3"></div>
+        <div class="sk-cube sk-cube4"></div>
+        <div class="sk-cube sk-cube5"></div>
+        <div class="sk-cube sk-cube6"></div>
+        <div class="sk-cube sk-cube7"></div>
+        <div class="sk-cube sk-cube8"></div>
+        <div class="sk-cube sk-cube9"></div>
+    </div>
+</div>
+
+<div id="ie-pageLoading">
+    <img src="http://10.10.0.166/static/lzu/images/loading.gif" alt="loading">
+</div>
+
+<script src="http://10.10.0.166/static/bower/all/1.0.0/all.min.js?v=20180302?v=2.00.20230918"></script>
+<script type="text/javascript">
+    var isIPV6 = false;
+    var portal = {
+        "AuthIP": "",
+        "AuthIP6": "",
+        "ServiceIP": "http://10.10.0.166:8800",
+        "DoubleStackPC": false,
+        "DoubleStackMobile": false,
+        "AuthMode": false,
+        "CloseLogout": false,
+        "MacAuth": true,
+        "RedirectUrl": true,
+        "OtherPCStack": "IPV4",
+        "OtherMobileStack": "IPV4",
+        "MsgApi": "new",
+        "PublicSuccessPages": false,
+        "TrafficCarry": 1024,
+        "UserAgreeSwitch": false,
+        "DialSwitch": false,
+        "MultiAuthSwitch": false
+    };
+    var lang = "zh-CN" || "zh-CN";
+</script>
+<script src="http://10.10.0.166/static/js/srun.portal.lang.js?v=2.00.20230918"></script>
+<script src="http://10.10.0.166/static/js/jquery.srun.portal.js?v=2.00.20230918"></script>
+<script src="http://10.10.0.166/static/lzu/js/main.js?v=2.00.20230918"></script>
+<script src="http://10.10.0.166/static/lzu/js/tools.js"></script>
+</body>
+
+</html>

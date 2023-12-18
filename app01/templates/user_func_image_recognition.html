@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% load custom_filters %}
+{% load static %}
+
+{% block css %}
+    <!-- 引入 Bootstrap 4 -->
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css' %}">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="{% static 'css/user_func_image_strengthen.css' %}">
+{% endblock %}
+
+{% block myjs %}
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <!-- 引入 jQuery 和 Bootstrap 4 JS -->
+    <script src="{% static 'plugins/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- 引入JS方法 -->
+    <script src="{% static 'js/user_func_image_recognition.js' %}"></script>
+
+
+
+{% endblock %}
+
+{% block main %}
+    <div class="outer-ml">
+    <div class="login-panel">
+    <form id="profile-form" method="post" enctype="multipart/form-data" class="needs-validation">
+        {% csrf_token %}
+        <!-- 头像预览 -->
+        <div class="form-group text-center">
+            <img class="logo" src="http://10.10.0.166/static/lzu/images/logo.png" alt="logo" style="width: 300px;">
+            <div class="ml-tupian">图像识别</div>
+            <!-- 使用img标签来预览头像 -->
+            <img class="avatar-preview mb-3" id="avatar-preview"
+                 src="{{ data_avatar|default:'default-avatar.png' }}"
+                 alt="Avatar Preview" style="height: 100px; width: auto; display: none;">
+
+            <input type="file" class="form-control-file no-file-label" id="avatar" name="avatar" accept="image/*"
+                   onchange="previewFile()" style="display: none;">
+            <div>
+                <button type="button" class="btn btn-dark" onclick="document.getElementById('avatar').click();">
+                    请选择您的图片
+                </button>
+
+            </div>
+        </div>
+
+        <!-- 提交按钮 -->
+        <div class="d-flex justify-content-center">
+            <div class="form-group">
+                <button type="button" class="ml_tijiao_s btn btn-custom btn-block" onclick="ProFile()">确认</button>
+
+            </div>
+        </div>
+        <div class="s-bottom  justify-content-center">
+            <ul id="results-container"></ul>
+        </div>
+    </form>
+
+
+{% endblock %}
+

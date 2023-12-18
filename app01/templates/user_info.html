@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+{% load custom_filters %}
+{% load static %}
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息页面</title>
+    <!-- 引入 Bootstrap 4 -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="{% static 'css/user_info.css' %}">
+    <script src="{% static 'js/jquery-3.5.1.slim.min.js' %}"></script>
+</head>
+<body>
+<div class="container profile-container">
+    <a href="/user/home/{{ user_id }}" class="btn btn-link">返回主页</a>
+    <h2 class="text-center mb-4">个人信息</h2>
+    <form id="profile-form" method="post" enctype="multipart/form-data" class="needs-validation">
+        {% csrf_token %}
+        <div id="url-container" data-info-url="{% url 'user_info' user.id %}" style="display:none;"></div>
+        <div id="user_id" data-info-user_id="{{ user_id }}" style="display:none;"></div>
+        <!-- 头像预览 -->
+        <div class="form-group text-center">
+            <label for="avatar" class="form-label">头像</label>
+            <div class="avatar-preview mb-3" id="avatar-preview"
+                 style="background-image: url('{{ data_avatar|default:"default-avatar.png" }}');"></div>
+            <input type="file" class="form-control-file no-file-label" id="avatar" name="avatar" accept="image/*"
+                   onchange="previewFile()" style="display: none;">
+            <button type="button" class="btn btn-link" onclick="document.getElementById('avatar').click();">选择头像
+            </button>
+        </div>
+
+
+        <!-- 用户名 -->
+        <div class="form-group">
+            <label for="username" class="form-label">用户名</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ data_username }}" required>
+            <div class="invalid-feedback">
+                请输入用户名。
+            </div>
+        </div>
+
+        <!-- 昵称 -->
+        <div class="form-group">
+            <label for="nickname" class="form-label">昵称</label>
+            <input type="text" class="form-control" id="nickname" name="nickname" value="{{ data_name }}" required>
+            <div class="invalid-feedback">
+                请输入昵称。
+            </div>
+        </div>
+
+        <!-- 年龄 -->
+        <div class="form-group">
+            <label for="age" class="form-label">年龄</label>
+            <input type="text" class="form-control" id="age" name="age" value="{{ data_age }}" required>
+            <div class="invalid-feedback">
+                请输入年龄。
+            </div>
+        </div>
+
+        <!-- 部分显示手机号 -->
+        <div class="form-group">
+            <label for="phone" class="form-label">手机号</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="{{ data_phone|phone_display }}"
+                   required readonly>
+        </div>
+        <!-- 性别选择 -->
+        <div class="form-group">
+            <label for="gender" class="form-label">性别</label>
+            <select class="form-control" id="gender" name="gender" required>
+                <option value="" disabled {% if not data_gender %}selected{% endif %}>选择性别</option>
+                <option value="男" {% if data_gender == '男' %}selected{% endif %}>男</option>
+                <option value="女" {% if data_gender == '女' %}selected{% endif %}>女</option>
+                <option value="不便透露" {% if data_gender == '不便透露' %}selected{% endif %}>不便透露</option>
+                <option value="跨性别认知者" {% if data_gender == '跨性别认知者' %}selected{% endif %}>跨性别认知者
+                </option>
+            </select>
+            <div class="invalid-feedback">
+                请选择性别。
+            </div>
+        </div>
+        <!-- 账户余额 -->
+        <div class="form-group">
+        <label for="balance" class="form-label">账户余额</label>
+            <div class="d-flex">
+                <input type="text" class="form-control equal-height" id="balance" name="balance" value="{{ data_balance }}" required readonly>
+                <button type="button" class="btn btn-custom1 flex-grow-1 equal-height" data-toggle="modal" data-target="#Money">
+                    充值
+                </button>
+            </div>
+        </div>
+
+        <!-- 提交按钮 -->
+        <div class="form-group">
+            <button type="button" class="btn btn-custom btn-block" onclick="ProFile()">保存修改</button>
+        </div>
+    </form>
+    <!-- 修改密码和修改手机号的按钮 -->
+    <div class="d-flex">
+        <button type="button" class="btn btn-custom flex-grow-1" data-toggle="modal" data-target="#verifyPhoneModal1">
+            修改密码
+        </button>
+        <button type="button" class="btn btn-custom flex-grow-1" data-toggle="modal" data-target="#verifyPhoneModal2">
+            修改手机号
+        </button>
+    </div>
+    {#充钱#}
+    <div class="modal fade" id="Money" tabindex="-1" role="dialog" aria-labelledby="verifyPhoneModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <img src="{% static 'img/money.png' %}" alt="">
+                </div>
+        </div>
+    </div>
+    <!-- 验证手机号模态框 -->
+    <div class="modal fade" id="verifyPhoneModal1" tabindex="-1" role="dialog" aria-labelledby="verifyPhoneModalLabel"
+         aria-hidden="true">
+        <form id="verifyPhoneModal1-form" method="post" enctype="multipart/form-data" class="needs-validation"
+              novalidate>
+            {% csrf_token %}
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="verifyPhoneModalLabel">验证手机号</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone1">手机号:</label>
+                        <input type="text" class="form-control" id="phone1" name="phone1" required>
+                        <div class="invalid-feedback">
+                            请输入手机号。
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="code1">验证码:</label>
+                        <div id="code-error" class="error-message"></div>
+                        <input type="text" class="form-control" id="code1" name="code1" required>
+                        <div class="invalid-feedback">
+                            请输入验证码。
+                        </div>
+                        <button type="button" class="btn btn-custom" id="get-code-reg1" onclick="sendCodeReg1()">
+                            获取验证码
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <!--<button type="button" class="btn btn-primary" onclick="openNewPasswordModal()">提交</button> -->
+                        <button type="button" class="btn btn-custom" onclick="SubmitChangPasswordVerfi()">提交
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 输入新密码模态框 -->
+    <div class="modal fade" id="newPasswordModal" tabindex="-1" role="dialog" aria-labelledby="newPasswordModalLabel"
+         aria-hidden="true">
+        <form id="newPasswordModal-form" method="post" enctype="multipart/form-data" class="needs-validation"
+              novalidate>
+            {% csrf_token %}
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newPasswordModalLabel">输入新密码</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="new-password-input"></label><input type="password" id="new-password-input" class="form-control" placeholder="输入新密码"
+                                                                       required>
+                        <div class="invalid-feedback">
+                            请输入新密码。
+                        </div>
+                        <label for="confirm-password-input"></label><input type="password" id="confirm-password-input" class="form-control mt-2"
+                                                                           placeholder="确认新密码" required>
+                        <div class="invalid-feedback">
+                            请确认新密码。
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-custom" onclick="changePassword()">提交</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 验证手机号模态框 -->
+    <div class="modal fade" id="verifyPhoneModal2" tabindex="-1" role="dialog" aria-labelledby="verifyPhoneModalLabel"
+         aria-hidden="true">
+        <form id="verifyPhoneModal2-form" method="post" enctype="multipart/form-data" class="needs-validation"
+              novalidate>
+            {% csrf_token %}
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="verifyPhoneModalLabel">验证手机号</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone2">手机号:</label>
+                        <input type="text" class="form-control" id="phone2" name="phone2" required>
+                        <div class="invalid-feedback">
+                            请输入手机号。
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="code2">验证码:</label>
+                        <div id="code-error" class="error-message"></div>
+                        <input type="text" class="form-control" id="code2" name="code2" required>
+                        <div class="invalid-feedback">
+                            请输入验证码。
+                        </div>
+                        <button type="button" class="btn btn-custom" id="get-code-reg2" onclick="sendCodeReg2()">
+                            获取验证码
+                        </button>
+                    </div>
+                    <div class="modal-footer">
+                        <!--<button type="button" class="btn btn-primary" onclick="openNewPasswordModal()">提交</button> -->
+                        <button type="button" class="btn btn-custom" onclick="SubmitChangPhoneVerfi()">提交</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 修改手机号模态框 -->
+    <div class="modal fade" id="changePhoneModal" tabindex="-1" role="dialog" aria-labelledby="changePhoneModalLabel"
+         aria-hidden="true">
+        <form id="changePhoneModal-form" method="post" enctype="multipart/form-data" class="needs-validation"
+              novalidate>
+            {% csrf_token %}
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changePhoneModalLabel">修改手机号</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="new-phone-input"></label><input type="text" id="new-phone-input" class="form-control" placeholder="输入新手机号"
+                                                                    required>
+                        <div class="invalid-feedback">
+                            请输入新手机号。
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-custom" onclick="changePhone()">保存修改</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- 引入 jQuery 和 Bootstrap 4 JS -->
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<!-- 引入JS方法 -->
+<script src="{% static 'js/user_info.js' %}"></script>
+</body>
+</html>
