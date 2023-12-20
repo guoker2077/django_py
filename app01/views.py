@@ -493,3 +493,13 @@ def admin_main(request):
     }
 
     return render(request, 'admin_main.html', context)
+
+# 最新新闻
+def latest_news(request):
+    return render(request, 'latest_news.html')
+
+def pricing(request):
+    return render(request, 'pricing.html')
+
+def docs(request):
+    return render(request, 'docs.html')

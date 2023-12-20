@@ -30,6 +30,9 @@ urlpatterns = [
     path('user/func/image/recognition/<int:user_id>', views.user_func_image_recognition, name='user_func_image_recognition'),
     path("admin/main/", views.admin_main, name='admin_main'),
     path("admin/login/", views.admin_login),
+    path('user/news/', views.latest_news, name='latest_news'),
+    path('user/pricing/', views.pricing, name='pricing'),
+    path('user/docs/', views.docs, name='docs'),
 
 ]
 if settings.DEBUG:
