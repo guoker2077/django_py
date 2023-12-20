@@ -17,8 +17,7 @@ import json
 from .forms import ProfileForm
 from .models import UserInfo
 import subprocess
-# from app01.image_recognition.ResNet50 import recognize_image
-
+from app01.image_recognition.ResNet50 import recognize_image
 
 
 # 在视图中使用 LoginForm 和 RegisterForm
@@ -364,17 +363,30 @@ def user_home_alreadyin(request, user_id):
                    "user_avatar": user_avatar})
 
 
-
 def user_home(req):
     return render(req, 'Home_page.html')
 
 
 @csrf_exempt  # 如果使用 AJAX 且跨域，可能需要此装饰器
-def user_func_image_strengthen(request):
+def user_func_image_strengthen(request, user_id):
+    if user_id:
+        user_data = UserInfo.objects.filter(user_id=user_id).first()
+        user_name = user_data.name
+        user_balance = user_data.balance
+        user_avatar = user_data.avatar
     if request.method == 'POST':
         action = request.POST.get('action')
         print(action)
         if action == 'profile':
+            user = User.objects.get(id=user_id)
+            userinfo = UserInfo.objects.get(user=user)
+            if user_balance >= 1:
+                user_balance -= 1
+                userinfo.balance = user_balance
+                user.save()
+                userinfo.save()
+            else:
+                return JsonResponse({'error': '余额不足'}, status=201)
             avatar = request.FILES.get('avatar')
             if avatar:
                 fs = FileSystemStorage()
@@ -388,13 +400,29 @@ def user_func_image_strengthen(request):
                 output_image_url = '/static/img/output_' + avatar.name
                 return JsonResponse({'message': output_image_url})
 
-    return render(request, "user_func_image_strengthen.html")
+    return render(request, "user_func_image_strengthen.html",{"user_id": user_id, "user_name": user_name, "user_balance": user_balance,
+                   "user_avatar": user_avatar})
+
 
 @csrf_exempt  # 如果使用 AJAX 且跨域，可能需要此装饰器
-def user_func_image_recognition(request):
+def user_func_image_recognition(request, user_id):
+    if user_id:
+        user_data = UserInfo.objects.filter(user_id=user_id).first()
+        user_name = user_data.name
+        user_balance = user_data.balance
+        user_avatar = user_data.avatar
     if request.method == 'POST':
         action = request.POST.get('action')
         if action == 'profile':
+            user = User.objects.get(id=user_id)
+            userinfo = UserInfo.objects.get(user=user)
+            if user_balance >= 1:
+                user_balance -= 1
+                userinfo.balance = user_balance
+                user.save()
+                userinfo.save()
+            else:
+                return JsonResponse({'error': '余额不足'}, status=201)
             image = request.FILES.get('avatar')
             if image:
                 fs = FileSystemStorage()
@@ -406,7 +434,9 @@ def user_func_image_recognition(request):
                 # 返回 JSON 数据
                 return JsonResponse({'results': results})
 
-    return render(request, "user_func_image_recognition.html")
+    return render(request, "user_func_image_recognition.html",{"user_id": user_id, "user_name": user_name, "user_balance": user_balance,
+                   "user_avatar": user_avatar})
+
 
 @csrf_exempt  # 如果使用 AJAX 且跨域，可能需要此装饰器
 def admin_login(request):

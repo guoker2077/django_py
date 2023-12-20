@@ -2,6 +2,42 @@
 {% load custom_filters %}
 {% load static %}
 
+
+{#头像部分#}
+{% block avatar %}
+    <div class="ml-profile-card" id="ml-profileCard">
+        <div class="ml-box">
+            <div class="ml-box-inner">
+                <img src="{{ user_avatar }}" alt="Avatar"
+                     class="ml-avatar"
+                     id="ml-avatar">
+            </div>
+
+            <div class="ml-info" id="ml-info">
+
+                <p>姓名:{{ user_name }}</p>
+                <p>余额:{{ user_balance }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{#登录退出部分#}
+{% block sign %}
+    <div class="header-actions-action header-actions-action--cta"
+         data-animation-role="header-element">
+        <a class="btn btn--border theme-btn--primary-inverse sqs-button-element--primary"
+           href="{% url 'user_home' %}">
+            SIGN OUT
+        </a>
+        <a class="btn btn--border theme-btn--primary-inverse sqs-button-element--primary"
+           href="/user/info/{{ user_id }}">
+            Account
+        </a>
+    </div>
+{% endblock %}
+
+
 {% block css %}
     <!-- 引入 Bootstrap 4 -->
     <link rel="stylesheet" href="{% static 'plugins/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css' %}">
@@ -25,6 +61,7 @@
     <div class="login-panel">
     <form id="profile-form" method="post" enctype="multipart/form-data" class="needs-validation">
         {% csrf_token %}
+        <div id="url-container" data-info-url="{% url 'user_func_image_strengthen' user.id %}" style="display:none;"></div>
         <!-- 头像预览 -->
         <div class="form-group text-center">
             <img class="logo" src="http://10.10.0.166/static/lzu/images/logo.png" alt="logo" style="width: 300px;">
@@ -47,7 +84,7 @@
         <!-- 提交按钮 -->
         <div class="d-flex justify-content-center">
             <div class="form-group">
-                <button type="button" class="ml_tijiao_s btn btn-custom btn-block" onclick="ProFile()">确认</button>
+                <button type="button" class="ml_tijiao_s btn btn-custom btn-block" onclick="ProFile()">确认($1)</button>
 
             </div>
         </div>
@@ -58,13 +95,14 @@
 
             <!-- 下载链接，初始时隐藏 -->
             <div class="d-flex justify-content-center">
-                <button id="downloadLink" class="btn btn-dark" download
+                <a id="downloadLink" href="" download class = "btn btn-primary"
                         style="display: none;width: 150px;">下载图片
-                </button>
+                </a>
             </div>
         </div>
     </form>
 
-
+    </div>
+    </div>
 {% endblock %}
 

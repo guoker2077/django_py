@@ -48,7 +48,7 @@ function ProFile() {
     var formData = new FormData();
     formData.append('avatar', document.getElementById('avatar').files[0]); // 添加文件
     formData.append('action', 'profile');
-    var infoUrl = '/user/func/image/strengthen'
+    var infoUrl = document.getElementById('url-container').getAttribute('data-info-url');
 
     fetch(infoUrl, {
         method: 'POST',
@@ -59,7 +59,12 @@ function ProFile() {
     })
         .then(response => response.json())
         .then(data => {
-            update_new(data.message)
+            if(data.error) {
+                alert(data.error)
+            }
+            else {
+                update_new(data.message)
+            }
         })
         .catch((error) => {
             console.error('Error:', error);

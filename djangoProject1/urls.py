@@ -26,8 +26,8 @@ urlpatterns = [
     path('user/home/<int:user_id>', views.user_home_alreadyin, name='user_home_alreadyin'),
     path('user/add/', views.user_add, name='user_add'),
     path('user/info/<int:user_id>/', views.user_info, name='user_info'),
-    path('user/func/image/strengthen', views.user_func_image_strengthen, name='user_func_image_strengthen'),
-    path('user/func/image/recognition/', views.user_func_image_recognition, name='user_func_image_recognition'),
+    path('user/func/image/strengthen/<int:user_id>', views.user_func_image_strengthen, name='user_func_image_strengthen'),
+    path('user/func/image/recognition/<int:user_id>', views.user_func_image_recognition, name='user_func_image_recognition'),
     path("admin/main/", views.admin_main, name='admin_main'),
     path("admin/login/", views.admin_login),
 

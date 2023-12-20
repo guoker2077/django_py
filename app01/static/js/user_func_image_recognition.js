@@ -27,7 +27,7 @@ function ProFile() {
 
     formData.append('avatar', document.getElementById('avatar').files[0]); // 添加文件
     formData.append('action', 'profile');
-    var infoUrl = '/user/func/image/recognition/';
+    var infoUrl = document.getElementById('url-container').getAttribute('data-info-url');
     console.log("dasfasf");
     fetch(infoUrl, {
         method: 'POST',
@@ -38,8 +38,13 @@ function ProFile() {
     })
         .then(response => response.json())
         .then(data => {
-        // 使用从后端获取的数据更新页面
-        updateResults(data.results);  // 这里处理返回的结果
+            if (data.error){
+                alert(data.error)
+            }
+            else {
+                // 使用从后端获取的数据更新页面
+                updateResults(data.results);  // 这里处理返回的结果
+            }
     })
         .catch((error) => {
             console.error('Error:', error);
