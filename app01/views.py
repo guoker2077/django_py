@@ -1,4 +1,5 @@
 from django.core.files.storage import FileSystemStorage
+from django.core.serializers import serialize
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
@@ -17,6 +18,8 @@ import json
 from .forms import ProfileForm
 from .models import UserInfo
 import subprocess
+
+
 from app01.image_recognition.ResNet50 import recognize_image
 
 
@@ -87,6 +90,7 @@ def user_add(request):
             password = data.get('password')
             phone = data.get('phone')
             input_code = data.get('code')
+            print(type(username), type(password), type(phone))
 
             # 从缓存中获取正确的验证码
 
@@ -102,10 +106,14 @@ def user_add(request):
                 print("验证码错误")
                 return JsonResponse({'error': '验证码错误'}, status=400)
             print("验证码正确")
+            # usernames = ['zjpp'+str(i) for i in range(1,50)]
+            # passwords = ['zjpp'+str(i) for i in range(1,50)]
+            # phones = ['111111161{:02d}'.format(i) for i in range(1, 50)]
             # 创建用户逻辑
-
+            # for username,password,phone in zip(usernames,passwords,phones):
             # 创建auth_user记录
-            user = User.objects.create_user(username=username, password=password)
+
+            user, boo = User.objects.get_or_create(username=username, password=password)
 
             # 创建app01_userinfo记录
             userinfo = UserInfo(user=user, phone=phone)
@@ -400,7 +408,8 @@ def user_func_image_strengthen(request, user_id):
                 output_image_url = '/static/img/output_' + avatar.name
                 return JsonResponse({'message': output_image_url})
 
-    return render(request, "user_func_image_strengthen.html",{"user_id": user_id, "user_name": user_name, "user_balance": user_balance,
+    return render(request, "user_func_image_strengthen.html",
+                  {"user_id": user_id, "user_name": user_name, "user_balance": user_balance,
                    "user_avatar": user_avatar})
 
 
@@ -434,18 +443,17 @@ def user_func_image_recognition(request, user_id):
                 # 返回 JSON 数据
                 return JsonResponse({'results': results})
 
-    return render(request, "user_func_image_recognition.html",{"user_id": user_id, "user_name": user_name, "user_balance": user_balance,
+    return render(request, "user_func_image_recognition.html",
+                  {"user_id": user_id, "user_name": user_name, "user_balance": user_balance,
                    "user_avatar": user_avatar})
 
+admin = 0
 
 @csrf_exempt  # 如果使用 AJAX 且跨域，可能需要此装饰器
 def admin_login(request):
     if request.method == 'POST':
         print("is in post")
-        action = request.POST.get('action')
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        print("username and password", username, password)
+
         # 检查请求体是否非空
         # 打印请求头和请求体的内容，用于调试
         # print("Request Headers:", request.headers)
@@ -472,6 +480,7 @@ def admin_login(request):
             print("username and password", username, password)
 
             if username == 'admin' and password == '123456':
+
                 admin = authenticate(username=username, password=password)
                 login(request, admin)
                 redirect_url = reverse('admin_main')
@@ -482,24 +491,162 @@ def admin_login(request):
     return render(request, 'admin_login.html')
 
 
+num = 0
+temp = {}
+
+
+
 @csrf_exempt  # 如果使用 AJAX 且跨域，可能需要此装饰器
 def admin_main(request):
+    global admin
     admin = request.user
     user_infos = UserInfo.objects.all()
-
     context = {
         'admin': admin,
-        'user_infos': user_infos
+        'user_infos': user_infos,
+        'len_user_infos': len(user_infos),
     }
 
-    return render(request, 'admin_main.html', context)
+    global num
+    global temp
+
+    chunk_size = 5  # Number of elements per chunk
+
+    try:
+        page_number = int(request.GET.get('page', 1))  # Get the page number from the request
+    except ValueError:
+        page_number = 1
+
+    context['page_number'] = page_number
+    last_page = (len(user_infos) + chunk_size - 1) // chunk_size
+    context['last_page'] = last_page
+    start_index = (page_number - 1) * chunk_size
+    end_index = page_number * chunk_size
+
+    # Extract the desired chunk of user_infos
+    context['user_infos'] = user_infos[start_index:end_index]
+    if num == 0:
+        context = temp
+        num = 1
+    if request.method == 'POST':
+        print("is in post")
+        # action = request.POST.get('action')
+
+        # 检查请求体是否非空
+        # 打印请求头和请求体的内容，用于调试
+        # print("Request Headers:", request.headers)
+        print("Request Body:", request.body)
+        if request.body:
+            try:
+                data = json.loads(request.body)
+                action = data.get('action')
+
+                if action == 'modify_balance':
+                    id = int(data.get('id'))
+                    balance = int(data.get('balance'))
+                    print("id and balance", id, balance)
+
+                    UserInfo.objects.filter(id=id).update(balance=balance)
+
+                    redirect_url = reverse('admin_main')
+                    return JsonResponse({'message': redirect_url})
+                elif action == 'search_content':
+                    content = data.get('content')
+                    content_list = UserInfo.objects.filter(id=content).all()
+
+                    num = 0
+                    context['user_infos'] = content_list
+                    context['souid'] = content
+
+                    temp = context
+                    print(temp)
+                    redirect_url = reverse('admin_main')
+                    return JsonResponse({'message': redirect_url})
+
+            except (json.JSONDecodeError, ValueError):
+                print("Error decoding JSON or converting values to integers")
+
+        # 处理其他情况或返回错误信息
+        return JsonResponse({'error': 'Invalid request'}, status=400)
+    else:
+        print(context)
+        return render(request, 'admin_main.html', context)
+
+
+def admin_user_delete(request):
+    nid = request.GET.get('nid')
+    UserInfo.objects.filter(id=nid).delete()
+    return redirect('/admin/main/')
+
+
+from django.contrib.auth.models import User
+from django.utils import timezone
+from django.db.models import Min, Count
+
+
+def admin_home_page(request):
+    global admin
+    user_info1 = UserInfo.objects.all()
+    context = {'admin': admin, 'len_user_info': len(user_info1), 'trans': f'{pow(len(user_info1), 0.5) * 10:.2f}'}
+    # 所有用户数
+    # 转化率
+    # 获取今日日期
+    today = timezone.now().date()
+
+    # 查询今日创建的用户数量
+    user_count = User.objects.filter(date_joined__date=today).count()
+
+    # 获取数据库中最早的用户创建时间
+    earliest_creation_time = User.objects.aggregate(Min('date_joined'))['date_joined__min']
+
+    # 计算经过的天数
+    current_time = timezone.now()
+    days_since_creation = (current_time - earliest_creation_time).days
+
+    context['user_today_count'] = user_count
+    context['days_since_creation'] = days_since_creation
+    print(context)
+    return render(request, 'admin_home_page.html', context)
+
+
+from itertools import groupby
+
+
+def admin_chart(request):
+    global admin
+    user_infos = UserInfo.objects.all()
+
+    # 使用 annotate 和 values 来计算每个年龄的人数
+    gender_counts = user_infos.values('gender').annotate(count=Count('id')).order_by('gender')
+    print(user_infos.values('age').annotate(count=Count('id')).order_by('age'))
+    age_counts = [[i['age'], i['count']] for i in user_infos.values('age').annotate(count=Count('id')).order_by('age')]
+    print(age_counts)
+    # 使用 groupby 来按性别和年龄分组
+    user_infos = sorted(user_infos, key=lambda x: (x.gender, x.age))
+
+    # 将数据按性别和年龄分组
+    grouped_data = {key: list(group) for key, group in groupby(user_infos, key=lambda x: (x.gender, x.age))}
+
+    # 计算男女各个年龄段的人数
+    male_age_counts = [{'age': age, 'count': len(group)} for (gender, age), group in grouped_data.items() if
+                       gender == '男']
+    female_age_counts = [{'age': age, 'count': len(group)} for (gender, age), group in grouped_data.items() if
+                         gender == '女']
+
+    context = {'male_age_counts': male_age_counts, 'female_age_counts': female_age_counts,
+               'gender_counts': gender_counts, 'age_counts': age_counts, 'admin': admin}
+    # print(age_counts)
+    return render(request, 'admin_chart.html', context)
+
 
 # 最新新闻
 def latest_news(request):
     return render(request, 'latest_news.html')
 
+
 def pricing(request):
     return render(request, 'pricing.html')
+
 
 def docs(request):
     return render(request, 'docs.html')

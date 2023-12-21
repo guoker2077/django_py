@@ -1,0 +1,159 @@
+{% extends 'admin_layout.html' %}
+
+{% block content %}
+    <section class="content-header">
+        <h1>
+            首页
+            <small>控制面板</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="admin/home/"><i class="fa fa-dashboard"></i> 首页</a></li>
+        </ol>
+    </section>
+    <!-- 内容头部 /-->
+
+    <!-- 正文区域 -->
+    <section class="content">
+
+
+        <!-- 统计数值 -->
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{ len_user_info }}</h3>
+
+                        <p>所有用户数</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>{{ trans }}<sup style="font-size: 20px">%</sup></h3>
+
+                        <p>转化率</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>{{ user_today_count }}</h3>
+
+                        <p>新注册用户</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+
+                        <h3>{{ days_since_creation }}日</h3>
+                        <p>系统已运行</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="box box-success">
+            <div class="box-header">
+                <h3 class="box-title">我的记录
+                    <small>Simple and fast</small>
+                </h3>
+                <!-- tools box -->
+                <div class="pull-right box-tools">
+                    <button type="button" class="btn btn-default btn-sm" data-widget="collapse"
+                            data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-default btn-sm" data-widget="remove"
+                            data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i></button>
+                </div>
+                <!-- /. tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body pad">
+                <form>
+                    <textarea class="textarea" placeholder="记录一些重要的事情吧！"
+                                      style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                </form>
+            </div>
+        </div>
+        <!-- 待处理游记 /-->
+
+
+    </section>
+
+    <!-- 正文区域 /-->
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            // 选择框
+            $(".select2").select2();
+
+            // WYSIHTML5编辑器
+            $(".textarea").wysihtml5({
+                locale: 'zh-CN'
+            });
+        });
+
+
+        // 设置激活菜单
+        function setSidebarActive(tagUri) {
+            var liObj = $("#" + tagUri);
+            if (liObj.length > 0) {
+                liObj.parent().parent().addClass("active");
+                liObj.addClass("active");
+            }
+        }
+
+
+        $(function () {
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            CKEDITOR.replace('editor1');
+
+            //bootstrap WYSIHTML5 - text editor
+            // $(".textarea").wysihtml5();
+
+            $("#markdown-textarea").markdown({
+                language: 'zh',
+                autofocus: false,
+                savable: false
+            });
+
+
+        });
+
+
+        // 激活导航位置
+        setSidebarActive("form-editors");
+    </script>
+{% endblock %}

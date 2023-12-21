@@ -21,18 +21,26 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    #path("admin/", admin.site.urls),
+    # path("admin/", admin.site.urls),
     path('user/home/', views.user_home, name='user_home'),
     path('user/home/<int:user_id>', views.user_home_alreadyin, name='user_home_alreadyin'),
     path('user/add/', views.user_add, name='user_add'),
-    path('user/info/<int:user_id>/', views.user_info, name='user_info'),
-    path('user/func/image/strengthen/<int:user_id>', views.user_func_image_strengthen, name='user_func_image_strengthen'),
-    path('user/func/image/recognition/<int:user_id>', views.user_func_image_recognition, name='user_func_image_recognition'),
-    path("admin/main/", views.admin_main, name='admin_main'),
-    path("admin/login/", views.admin_login),
     path('user/news/', views.latest_news, name='latest_news'),
     path('user/pricing/', views.pricing, name='pricing'),
     path('user/docs/', views.docs, name='docs'),
+    path('user/info/<int:user_id>/', views.user_info, name='user_info'),
+    path('user/func/image/strengthen/<int:user_id>', views.user_func_image_strengthen,
+         name='user_func_image_strengthen'),
+    path('user/func/image/recognition/<int:user_id>', views.user_func_image_recognition,
+         name='user_func_image_recognition'),
+
+    path("admin/login/", views.admin_login),
+    path("admin/home/", views.admin_home_page, name='admin_home_page'),
+    path("admin/main/", views.admin_main, name='admin_main'),
+    path("admin/chart/", views.admin_chart, name='admin_chart'),
+    path("admin/user/delete/", views.admin_user_delete),
+
+
 
 ]
 if settings.DEBUG:
