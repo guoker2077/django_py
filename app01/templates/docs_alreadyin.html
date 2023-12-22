@@ -1,0 +1,643 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{#头像部分#}
+{% block avatar %}
+    <div class="ml-profile-card" id="ml-profileCard">
+        <div class="ml-box">
+            <div class="ml-box-inner">
+                <img src="{{ user_avatar }}" alt="Avatar"
+                     class="ml-avatar"
+                     id="ml-avatar">
+            </div>
+
+            <div class="ml-info" id="ml-info">
+
+                <p>姓名:{{ user_name }}</p>
+                <p>余额:{{ user_balance }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{#登录退出部分#}
+{% block sign %}
+    <div class="header-actions-action header-actions-action--cta"
+         data-animation-role="header-element">
+        <a class="btn btn--border theme-btn--primary-inverse sqs-button-element--primary"
+           href="{% url 'user_home' %}">
+            SIGN OUT
+        </a>
+        <a class="btn btn--border theme-btn--primary-inverse sqs-button-element--primary"
+           href="/user/info/{{ user_id }}">
+            Account
+        </a>
+    </div>
+{% endblock %}
+
+
+
+{% block main %}
+    <article class="sections" id="sections" data-page-sections="6411d5cd1fbf9573ea2ab731">
+
+        <section data-test="page-section" data-section-theme="black" class="page-section
+
+      full-bleed-section
+      layout-engine-section
+
+    background-width--full-bleed
+
+      section-height--medium
+
+
+      content-width--wide
+
+    horizontal-alignment--center
+    vertical-alignment--middle
+
+
+
+
+    black" data-section-id="6412af355894d47fb576da8d" data-controller="SectionWrapperController" data-current-styles="{
+&quot;imageOverlayOpacity&quot;: 0.15,
+&quot;backgroundWidth&quot;: &quot;background-width--full-bleed&quot;,
+&quot;sectionHeight&quot;: &quot;section-height--medium&quot;,
+&quot;customSectionHeight&quot;: 1,
+&quot;horizontalAlignment&quot;: &quot;horizontal-alignment--center&quot;,
+&quot;verticalAlignment&quot;: &quot;vertical-alignment--middle&quot;,
+&quot;contentWidth&quot;: &quot;content-width--wide&quot;,
+&quot;customContentWidth&quot;: 50,
+&quot;sectionTheme&quot;: &quot;black&quot;,
+&quot;sectionAnimation&quot;: &quot;none&quot;,
+&quot;backgroundMode&quot;: &quot;image&quot;
+}" data-current-context="{
+&quot;video&quot;: {
+&quot;playbackSpeed&quot;: 0.5,
+&quot;filter&quot;: 1,
+&quot;filterStrength&quot;: 0,
+&quot;zoom&quot;: 0,
+&quot;videoSourceProvider&quot;: &quot;none&quot;
+},
+&quot;backgroundImageId&quot;: null,
+&quot;backgroundMediaEffect&quot;: {
+&quot;type&quot;: &quot;none&quot;
+},
+&quot;divider&quot;: null,
+&quot;typeName&quot;: &quot;page&quot;
+}" data-animation="none" data-fluid-engine-section="" style="padding-top: 93.6719px;"
+                 data-controllers-bound="SectionWrapperController" data-active="true">
+            <div class="section-border">
+                <div class="section-background">
+
+
+                </div>
+            </div>
+            <div class="content-wrapper" style="
+
+
+
+    ">
+                <div class="content">
+
+
+                    <div data-fluid-engine="true">
+                        <style>.fe-6412af355894d47fb576da8c {
+                            --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);
+                            --cell-max-width: calc((var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1))) / 8);
+
+                            display: grid;
+                            position: relative;
+                            grid-area: 1/1/-1/-1;
+                            grid-template-rows: repeat(18, minmax(24px, auto));
+                            grid-template-columns:
+    minmax(var(--grid-gutter), 1fr)
+    repeat(8, minmax(0, var(--cell-max-width)))
+    minmax(var(--grid-gutter), 1fr);
+                            row-gap: 11.0px;
+                            column-gap: 11.0px;
+                        }
+
+                        @media (min-width: 768px) {
+                            .background-width--inset .fe-6412af355894d47fb576da8c {
+                                --inset-padding: calc(var(--sqs-site-gutter) * 2);
+                            }
+
+                            .fe-6412af355894d47fb576da8c {
+                                --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);
+                                --cell-max-width: calc((var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1))) / 24);
+                                --inset-padding: 0vw;
+
+                                --row-height-scaling-factor: 0.0215;
+                                --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding)));
+
+                                grid-template-rows: repeat(25, minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));
+                                grid-template-columns:
+      minmax(var(--grid-gutter), 1fr)
+      repeat(24, minmax(0, var(--cell-max-width)))
+      minmax(var(--grid-gutter), 1fr);
+                            }
+                        }
+
+
+                        .fe-block-7ed6bdffa68b84635b1a {
+                            grid-area: 1/2/11/10;
+                            z-index: 0;
+                        }
+
+                        .fe-block-7ed6bdffa68b84635b1a .sqs-block {
+                            justify-content: flex-start;
+                        }
+
+                        .fe-block-7ed6bdffa68b84635b1a .sqs-block-alignment-wrapper {
+                            align-items: flex-start;
+                        }
+
+                        @media (min-width: 768px) {
+                            .fe-block-7ed6bdffa68b84635b1a {
+                                grid-area: 1/4/7/24;
+                                z-index: 0;
+                            }
+
+                            .fe-block-7ed6bdffa68b84635b1a .sqs-block {
+                                justify-content: flex-start;
+                            }
+
+                            .fe-block-7ed6bdffa68b84635b1a .sqs-block-alignment-wrapper {
+                                align-items: flex-start;
+                            }
+                        }
+
+                        .fe-block-314d749182caf5ba9311 {
+                            grid-area: 11/2/19/10;
+                            z-index: 2;
+                        }
+
+                        .fe-block-314d749182caf5ba9311 .sqs-block {
+                            justify-content: flex-start;
+                        }
+
+                        .fe-block-314d749182caf5ba9311 .sqs-block-alignment-wrapper {
+                            align-items: flex-start;
+                        }
+
+                        @media (min-width: 768px) {
+                            .fe-block-314d749182caf5ba9311 {
+                                grid-area: 8/4/26/24;
+                                z-index: 2;
+                            }
+
+                            .fe-block-314d749182caf5ba9311 .sqs-block {
+                                justify-content: flex-start;
+                            }
+
+                            .fe-block-314d749182caf5ba9311 .sqs-block-alignment-wrapper {
+                                align-items: flex-start;
+                            }
+                        }
+
+                        </style>
+                        <div class="fluid-engine fe-6412af355894d47fb576da8c">
+                            <div class="fe-block fe-block-7ed6bdffa68b84635b1a">
+                                <div class="sqs-block html-block sqs-block-html" data-block-type="2"
+                                     id="block-7ed6bdffa68b84635b1a">
+                                    <div class="sqs-block-content">
+
+                                        <div class="sqs-html-content">
+                                            <h1 style="text-align: center; white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.65s; transition-delay: 0.243902s; animation-duration: 0.65s;"
+                                                class="preFade fadeIn">The Usage of Our Model </h1>
+
+                                            <h3 style="text-align: center; white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.65s; transition-delay: 0.268293s; animation-duration: 0.65s;"
+                                                class="preFade fadeIn"><strong>@</strong><a
+                                                    href="{% static '/img/test_video.mp4' %}"
+                                                    target="_blank"><strong>ZJJ\ZJP\WYB</strong></a></h3>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fe-block fe-block-314d749182caf5ba9311">
+                                <div class="sqs-block video-block sqs-block-video"
+                                     data-block-json="{&quot;blockAnimation&quot;:&quot;none&quot;,&quot;layout&quot;:&quot;caption-hidden&quot;,&quot;overlay&quot;:true,&quot;description&quot;:{},&quot;isOldBlock&quot;:false,&quot;customThumb&quot;:&quot;6412edfdfe75c26f7f880ec3&quot;,&quot;html&quot;:&quot;<iframe width=\&quot;200\&quot; height=\&quot;113\&quot; src=\&quot;https://www.youtube.com/embed/Ujpr62w7qcU?feature=oembed\&quot; frameborder=\&quot;0\&quot; allow=\&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\&quot; allowfullscreen title=\&quot;The Rise of AI Art - an AI Documentary\&quot;></iframe>&quot;,&quot;url&quot;:&quot;https://www.youtube.com/watch?v=Ujpr62w7qcU&quot;,&quot;width&quot;:200,&quot;height&quot;:113,&quot;providerName&quot;:&quot;YouTube&quot;,&quot;thumbnailUrl&quot;:&quot;https://i.ytimg.com/vi/Ujpr62w7qcU/hqdefault.jpg&quot;,&quot;resolvedBy&quot;:&quot;youtube&quot;}"
+                                     data-block-type="32" id="block-314d749182caf5ba9311">
+                                    <div class="sqs-block-content" id="yui_3_17_2_1_1703002500435_66">
+                                        <div class="intrinsic" style="max-width:100%">
+                                            <div class="embed-block-wrapper " style="padding-bottom:56.5%;">
+                                                <div class="sqs-video-wrapper video-none" data-provider-name="YouTube"
+                                                     data-html="<iframe width=&quot;200&quot; height=&quot;113&quot; src=&quot;{% static '/img/test_video.mp4' %}&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; allowfullscreen title=&quot;The Rise of AI Art - an AI Documentary&quot;></iframe>"
+                                                     id="yui_3_17_2_1_1703002500435_73">
+{#                                                    普通实现 #}
+{#                                                    <div class="intrinsic">#}
+{#                                                        <div class="intrinsic-inner" style="padding-bottom: 56.5%;">#}
+{#                                                            <div class="sqs-video-overlay"#}
+{#                                                                 style="opacity: 1; overflow: hidden;"#}
+{#                                                                 id="yui_3_17_2_1_1703002500435_95">#}
+{##}
+{#                                                                <div class="sqs-video-opaque"></div>#}
+{#                                                                <div class="sqs-video-icon" tabindex="0" role="button"#}
+{#                                                                     aria-label="Play"></div>#}
+{#                                                                <video src="{% static '/img/test_video.mp4' %}" controls  style="width:1000px; " ></video>#}
+{#                                                                                                                            </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+                                                    <div class="intrinsic"><div class="intrinsic-inner" style="padding-bottom: 56.5%;"><div class="sqs-video-overlay" style="opacity: 1; overflow: hidden;" id="yui_3_17_2_1_1703072037577_95"><img data-src="https://images.squarespace-cdn.com/content/v1/6411cba29f7f4b4a7e9609c8/1fee941e-ab74-41cf-91bb-063830748c2e/Screenshot+2023-03-16+at+14.02.09.jpg" data-load="false" data-image-focal-point="0.5,0.5" class="loaded" data-image-dimensions="100x52" data-parent-ratio="1.8" style="font-size: 0px; left: -49.7692px; top: 0px; width: 1261.54px; height: 656px; position: relative;" data-image-resolution="2500w" src="https://images.squarespace-cdn.com/content/v1/6411cba29f7f4b4a7e9609c8/1fee941e-ab74-41cf-91bb-063830748c2e/Screenshot+2023-03-16+at+14.02.09.jpg?format=2500w"><div class="sqs-video-opaque"></div><div class="sqs-video-icon" tabindex="0" role="button" aria-label="Play"></div></div></div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+       <section data-test="page-section" data-section-theme="light" class="page-section
+
+      full-bleed-section
+      layout-engine-section
+
+    background-width--full-bleed
+
+
+        section-height--custom
+
+
+
+      content-width--wide
+
+    horizontal-alignment--center
+    vertical-alignment--middle
+
+
+
+
+    light" data-section-id="6412bd993ccc656c266647e5" data-controller="SectionWrapperController" data-current-styles="{
+&quot;imageOverlayOpacity&quot;: 0.15,
+&quot;backgroundWidth&quot;: &quot;background-width--full-bleed&quot;,
+&quot;sectionHeight&quot;: &quot;section-height--custom&quot;,
+&quot;customSectionHeight&quot;: 10,
+&quot;horizontalAlignment&quot;: &quot;horizontal-alignment--center&quot;,
+&quot;verticalAlignment&quot;: &quot;vertical-alignment--middle&quot;,
+&quot;contentWidth&quot;: &quot;content-width--wide&quot;,
+&quot;customContentWidth&quot;: 50,
+&quot;sectionTheme&quot;: &quot;light&quot;,
+&quot;sectionAnimation&quot;: &quot;none&quot;,
+&quot;backgroundMode&quot;: &quot;image&quot;
+}" data-current-context="{
+&quot;video&quot;: {
+&quot;playbackSpeed&quot;: 0.5,
+&quot;filter&quot;: 1,
+&quot;filterStrength&quot;: 0,
+&quot;zoom&quot;: 0,
+&quot;videoSourceProvider&quot;: &quot;none&quot;
+},
+&quot;backgroundImageId&quot;: null,
+&quot;backgroundMediaEffect&quot;: {
+&quot;type&quot;: &quot;none&quot;
+},
+&quot;divider&quot;: null,
+&quot;typeName&quot;: &quot;page&quot;
+}" data-animation="none" data-fluid-engine-section="" style="min-height: 10vh;" data-controllers-bound="SectionWrapperController" id="yui_3_17_2_1_1703002500435_513" data-active="true">
+  <div class="section-border">
+    <div class="section-background">
+
+
+
+    </div>
+  </div>
+  <div class="content-wrapper" style="
+
+
+
+
+          padding-top: calc(10vmax / 10); padding-bottom: calc(10vmax / 10);
+
+
+    " id="yui_3_17_2_1_1703002500435_512">
+    <div class="content" id="yui_3_17_2_1_1703002500435_511">
+
+
+
+
+
+
+      <div data-fluid-engine="true" id="yui_3_17_2_1_1703002500435_510"><style>.fe-6412bd993ccc656c266647e4 {
+  --grid-gutter: calc(var(--sqs-mobile-site-gutter, 6vw) - 11.0px);
+  --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (8 - 1)) ) / 8 );
+
+  display: grid;
+  position: relative;
+  grid-area: 1/1/-1/-1;
+  grid-template-rows: repeat(35,minmax(24px, auto));
+  grid-template-columns:
+    minmax(var(--grid-gutter), 1fr)
+    repeat(8, minmax(0, var(--cell-max-width)))
+    minmax(var(--grid-gutter), 1fr);
+  row-gap: 11.0px;
+  column-gap: 11.0px;
+}
+
+@media (min-width: 768px) {
+  .background-width--inset .fe-6412bd993ccc656c266647e4 {
+    --inset-padding: calc(var(--sqs-site-gutter) * 2);
+  }
+
+  .fe-6412bd993ccc656c266647e4 {
+    --grid-gutter: calc(var(--sqs-site-gutter, 4vw) - 11.0px);
+    --cell-max-width: calc( ( var(--sqs-site-max-width, 1500px) - (11.0px * (24 - 1)) ) / 24 );
+    --inset-padding: 0vw;
+
+    --row-height-scaling-factor: 0.0215;
+    --container-width: min(var(--sqs-site-max-width, 1500px), calc(100vw - var(--sqs-site-gutter, 4vw) * 2 - var(--inset-padding) ));
+
+    grid-template-rows: repeat(24,minmax(calc(var(--container-width) * var(--row-height-scaling-factor)), auto));
+    grid-template-columns:
+      minmax(var(--grid-gutter), 1fr)
+      repeat(24, minmax(0, var(--cell-max-width)))
+      minmax(var(--grid-gutter), 1fr);
+  }
+}
+
+
+  .fe-block-0543646807e7f91bafcd {
+    grid-area: 3/2/11/10;
+    z-index: 0;
+  }
+
+  .fe-block-0543646807e7f91bafcd .sqs-block {
+    justify-content: flex-start;
+  }
+
+  .fe-block-0543646807e7f91bafcd .sqs-block-alignment-wrapper {
+    align-items: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    .fe-block-0543646807e7f91bafcd {
+      grid-area: 4/2/15/12;
+      z-index: 0;
+    }
+
+    .fe-block-0543646807e7f91bafcd .sqs-block {
+      justify-content: flex-start;
+    }
+
+    .fe-block-0543646807e7f91bafcd .sqs-block-alignment-wrapper {
+      align-items: flex-start;
+    }
+  }
+
+  .fe-block-f12a49caf7e95223f9de {
+    grid-area: 11/2/21/10;
+    z-index: 1;
+  }
+
+  .fe-block-f12a49caf7e95223f9de .sqs-block {
+    justify-content: flex-start;
+  }
+
+  .fe-block-f12a49caf7e95223f9de .sqs-block-alignment-wrapper {
+    align-items: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    .fe-block-f12a49caf7e95223f9de {
+      grid-area: 15/2/25/12;
+      z-index: 1;
+    }
+
+    .fe-block-f12a49caf7e95223f9de .sqs-block {
+      justify-content: flex-start;
+    }
+
+    .fe-block-f12a49caf7e95223f9de .sqs-block-alignment-wrapper {
+      align-items: flex-start;
+    }
+  }
+
+  .fe-block-10406bd5626f30a39c13 {
+    grid-area: 21/2/34/10;
+    z-index: 2;
+  }
+
+  .fe-block-10406bd5626f30a39c13 .sqs-block {
+    justify-content: center;
+  }
+
+  .fe-block-10406bd5626f30a39c13 .sqs-block-alignment-wrapper {
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .fe-block-10406bd5626f30a39c13 {
+      grid-area: 4/15/22/26;
+      z-index: 2;
+    }
+
+    .fe-block-10406bd5626f30a39c13 .sqs-block {
+      justify-content: center;
+    }
+
+    .fe-block-10406bd5626f30a39c13 .sqs-block-alignment-wrapper {
+      align-items: center;
+    }
+  }
+
+</style><div class="fluid-engine fe-6412bd993ccc656c266647e4" id="yui_3_17_2_1_1703002500435_509"><div class="fe-block fe-block-0543646807e7f91bafcd"><div class="sqs-block html-block sqs-block-html" data-block-type="2" id="block-0543646807e7f91bafcd"><div class="sqs-block-content">
+
+<div class="sqs-html-content">
+  <h2 style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.65s; transition-delay: 0.634146s; animation-duration: 0.65s;" class="preFade fadeIn">The Usage of Our Models</h2><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.65s; transition-delay: 0.646341s; animation-duration: 0.65s;">1. <strong>Image Enhancement:</strong>
+    Enhance the visual quality and features of your images with our image enhancement functionality. Whether you're looking to improve clarity, adjust brightness, or refine colors, our tools provide a range of enhancements to make your images stand out.</p><p class="preFade fadeIn" style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.65s; transition-delay: 0.670732s; animation-duration: 0.65s;"><strong>2.Image Recognition:</strong>
+    Harness the power of image recognition to identify objects, patterns, and information within your images. Our image recognition technology employs advanced algorithms to analyze and categorize visual content, enabling you to automate processes, extract meaningful insights, and streamline workflows. Unlock the potential of image recognition for a variety of applications across industries.</p>
+    <h2 style="white-space: pre-wrap; transition-timing-function: ease; transition-duration: 0.65s; transition-delay: 0.634146s; animation-duration: 0.65s;" class="preFade fadeIn">Share Your Ideas To Expand Our Learning Model</h2>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div></div></div><div class="fe-block fe-block-f12a49caf7e95223f9de"><div class="sqs-block form-block sqs-block-form" data-block-type="9" id="block-f12a49caf7e95223f9de"><div class="sqs-block-content">
+
+  <script type="application/json" id="form-context-6412bd993ccc656c266647df" class="sqs-form-block-context">{"secureUrl":"https://flugelhorn-drum-l9ca.squarespace.com","formSubmitButtonText":"Submit","formSubmissionMessage":{"html":"<p class=\"\" style=\"white-space:pre-wrap;\">Thank you for sharing this with us!</p><p class=\"\" style=\"white-space:pre-wrap;\">Keep prompting!</p>"},"submissionVerticalAlignment":"","buttonAlignment":"left","submissionMessageTextStyle":"","formName":"Tutorial_Video","collectionId":"6411d5cd1fbf9573ea2ab732","submissionAnimation":"","captchaTheme":1,"formId":"6412bd993ccc656c266647df","useLightbox":false,"firstFieldHighlightType":"","useFormsJs":true,"submissionTextAlignment":"","formFieldFormats":{"initialPhoneFormat":{"id":0,"type":"PHONE_NUMBER","country":"US","labelLocale":"en-US","fields":[{"type":"SEPARATOR","label":"(","identifier":"LeftParen","length":0,"required":false,"metadata":{}},{"type":"FIELD","label":"1","identifier":"1","length":3,"required":false,"metadata":{}},{"type":"SEPARATOR","label":")","identifier":"RightParen","length":0,"required":false,"metadata":{}},{"type":"SEPARATOR","label":" ","identifier":"Space","length":0,"required":false,"metadata":{}},{"type":"FIELD","label":"2","identifier":"2","length":3,"required":false,"metadata":{}},{"type":"SEPARATOR","label":"-","identifier":"Dash","length":0,"required":false,"metadata":{}},{"type":"FIELD","label":"3","identifier":"3","length":14,"required":false,"metadata":{}}]},"initialAddressFormat":{"id":0,"type":"ADDRESS","country":"US","labelLocale":"en","fields":[{"type":"FIELD","label":"Address Line 1","identifier":"Line1","length":0,"required":true,"metadata":{"autocomplete":"address-line1"}},{"type":"SEPARATOR","label":"\n","identifier":"Newline","length":0,"required":false,"metadata":{}},{"type":"FIELD","label":"Address Line 2","identifier":"Line2","length":0,"required":false,"metadata":{"autocomplete":"address-line2"}},{"type":"SEPARATOR","label":"\n","identifier":"Newline","length":0,"required":false,"metadata":{}},{"type":"FIELD","label":"City","identifier":"City","length":0,"required":true,"metadata":{"autocomplete":"address-level2"}},{"type":"SEPARATOR","label":",","identifier":"Comma","length":0,"required":false,"metadata":{}},{"type":"SEPARATOR","label":" ","identifier":"Space","length":0,"required":false,"metadata":{}},{"type":"FIELD","label":"State","identifier":"State","length":0,"required":true,"metadata":{"autocomplete":"address-level1"}},{"type":"SEPARATOR","label":" ","identifier":"Space","length":0,"required":false,"metadata":{}},{"type":"FIELD","label":"ZIP Code","identifier":"Zip","length":0,"required":true,"metadata":{"autocomplete":"postal-code"}}]},"countries":[{"name":"Afghanistan","code":"AF","phoneCode":"+93"},{"name":"Åland Islands","code":"AX","phoneCode":"+358"},{"name":"Albania","code":"AL","phoneCode":"+355"},{"name":"Algeria","code":"DZ","phoneCode":"+213"},{"name":"American Samoa","code":"AS","phoneCode":"+1"},{"name":"Andorra","code":"AD","phoneCode":"+376"},{"name":"Angola","code":"AO","phoneCode":"+244"},{"name":"Anguilla","code":"AI","phoneCode":"+1"},{"name":"Antigua & Barbuda","code":"AG","phoneCode":"+1"},{"name":"Argentina","code":"AR","phoneCode":"+54"},{"name":"Armenia","code":"AM","phoneCode":"+374"},{"name":"Aruba","code":"AW","phoneCode":"+297"},{"name":"Ascension Island","code":"AC","phoneCode":"+247"},{"name":"Australia","code":"AU","phoneCode":"+61"},{"name":"Austria","code":"AT","phoneCode":"+43"},{"name":"Azerbaijan","code":"AZ","phoneCode":"+994"},{"name":"Bahamas","code":"BS","phoneCode":"+1"},{"name":"Bahrain","code":"BH","phoneCode":"+973"},{"name":"Bangladesh","code":"BD","phoneCode":"+880"},{"name":"Barbados","code":"BB","phoneCode":"+1"},{"name":"Belarus","code":"BY","phoneCode":"+375"},{"name":"Belgium","code":"BE","phoneCode":"+32"},{"name":"Belize","code":"BZ","phoneCode":"+501"},{"name":"Benin","code":"BJ","phoneCode":"+229"},{"name":"Bermuda","code":"BM","phoneCode":"+1"},{"name":"Bhutan","code":"BT","phoneCode":"+975"},{"name":"Bolivia","code":"BO","phoneCode":"+591"},{"name":"Bosnia & Herzegovina","code":"BA","phoneCode":"+387"},{"name":"Botswana","code":"BW","phoneCode":"+267"},{"name":"Brazil","code":"BR","phoneCode":"+55"},{"name":"British Indian Ocean Territory","code":"IO","phoneCode":"+246"},{"name":"British Virgin Islands","code":"VG","phoneCode":"+1"},{"name":"Brunei","code":"BN","phoneCode":"+673"},{"name":"Bulgaria","code":"BG","phoneCode":"+359"},{"name":"Burkina Faso","code":"BF","phoneCode":"+226"},{"name":"Burundi","code":"BI","phoneCode":"+257"},{"name":"Cambodia","code":"KH","phoneCode":"+855"},{"name":"Cameroon","code":"CM","phoneCode":"+237"},{"name":"Canada","code":"CA","phoneCode":"+1"},{"name":"Cape Verde","code":"CV","phoneCode":"+238"},{"name":"Caribbean Netherlands","code":"BQ","phoneCode":"+599"},{"name":"Cayman Islands","code":"KY","phoneCode":"+1"},{"name":"Central African Republic","code":"CF","phoneCode":"+236"},{"name":"Chad","code":"TD","phoneCode":"+235"},{"name":"Chile","code":"CL","phoneCode":"+56"},{"name":"China","code":"CN","phoneCode":"+86"},{"name":"Christmas Island","code":"CX","phoneCode":"+61"},{"name":"Cocos (Keeling) Islands","code":"CC","phoneCode":"+61"},{"name":"Colombia","code":"CO","phoneCode":"+57"},{"name":"Comoros","code":"KM","phoneCode":"+269"},{"name":"Congo - Brazzaville","code":"CG","phoneCode":"+242"},{"name":"Congo - Kinshasa","code":"CD","phoneCode":"+243"},{"name":"Cook Islands","code":"CK","phoneCode":"+682"},{"name":"Costa Rica","code":"CR","phoneCode":"+506"},{"name":"Côte d’Ivoire","code":"CI","phoneCode":"+225"},{"name":"Croatia","code":"HR","phoneCode":"+385"},{"name":"Cuba","code":"CU","phoneCode":"+53"},{"name":"Curaçao","code":"CW","phoneCode":"+599"},{"name":"Cyprus","code":"CY","phoneCode":"+357"},{"name":"Czechia","code":"CZ","phoneCode":"+420"},{"name":"Denmark","code":"DK","phoneCode":"+45"},{"name":"Djibouti","code":"DJ","phoneCode":"+253"},{"name":"Dominica","code":"DM","phoneCode":"+1"},{"name":"Dominican Republic","code":"DO","phoneCode":"+1"},{"name":"Ecuador","code":"EC","phoneCode":"+593"},{"name":"Egypt","code":"EG","phoneCode":"+20"},{"name":"El Salvador","code":"SV","phoneCode":"+503"},{"name":"Equatorial Guinea","code":"GQ","phoneCode":"+240"},{"name":"Eritrea","code":"ER","phoneCode":"+291"},{"name":"Estonia","code":"EE","phoneCode":"+372"},{"name":"Eswatini","code":"SZ","phoneCode":"+268"},{"name":"Ethiopia","code":"ET","phoneCode":"+251"},{"name":"Falkland Islands","code":"FK","phoneCode":"+500"},{"name":"Faroe Islands","code":"FO","phoneCode":"+298"},{"name":"Fiji","code":"FJ","phoneCode":"+679"},{"name":"Finland","code":"FI","phoneCode":"+358"},{"name":"France","code":"FR","phoneCode":"+33"},{"name":"French Guiana","code":"GF","phoneCode":"+594"},{"name":"French Polynesia","code":"PF","phoneCode":"+689"},{"name":"Gabon","code":"GA","phoneCode":"+241"},{"name":"Gambia","code":"GM","phoneCode":"+220"},{"name":"Georgia","code":"GE","phoneCode":"+995"},{"name":"Germany","code":"DE","phoneCode":"+49"},{"name":"Ghana","code":"GH","phoneCode":"+233"},{"name":"Gibraltar","code":"GI","phoneCode":"+350"},{"name":"Greece","code":"GR","phoneCode":"+30"},{"name":"Greenland","code":"GL","phoneCode":"+299"},{"name":"Grenada","code":"GD","phoneCode":"+1"},{"name":"Guadeloupe","code":"GP","phoneCode":"+590"},{"name":"Guam","code":"GU","phoneCode":"+1"},{"name":"Guatemala","code":"GT","phoneCode":"+502"},{"name":"Guernsey","code":"GG","phoneCode":"+44"},{"name":"Guinea","code":"GN","phoneCode":"+224"},{"name":"Guinea-Bissau","code":"GW","phoneCode":"+245"},{"name":"Guyana","code":"GY","phoneCode":"+592"},{"name":"Haiti","code":"HT","phoneCode":"+509"},{"name":"Honduras","code":"HN","phoneCode":"+504"},{"name":"Hong Kong SAR China","code":"HK","phoneCode":"+852"},{"name":"Hungary","code":"HU","phoneCode":"+36"},{"name":"Iceland","code":"IS","phoneCode":"+354"},{"name":"India","code":"IN","phoneCode":"+91"},{"name":"Indonesia","code":"ID","phoneCode":"+62"},{"name":"Iran","code":"IR","phoneCode":"+98"},{"name":"Iraq","code":"IQ","phoneCode":"+964"},{"name":"Ireland","code":"IE","phoneCode":"+353"},{"name":"Isle of Man","code":"IM","phoneCode":"+44"},{"name":"Israel","code":"IL","phoneCode":"+972"},{"name":"Italy","code":"IT","phoneCode":"+39"},{"name":"Jamaica","code":"JM","phoneCode":"+1"},{"name":"Japan","code":"JP","phoneCode":"+81"},{"name":"Jersey","code":"JE","phoneCode":"+44"},{"name":"Jordan","code":"JO","phoneCode":"+962"},{"name":"Kazakhstan","code":"KZ","phoneCode":"+7"},{"name":"Kenya","code":"KE","phoneCode":"+254"},{"name":"Kiribati","code":"KI","phoneCode":"+686"},{"name":"Kosovo","code":"XK","phoneCode":"+383"},{"name":"Kuwait","code":"KW","phoneCode":"+965"},{"name":"Kyrgyzstan","code":"KG","phoneCode":"+996"},{"name":"Laos","code":"LA","phoneCode":"+856"},{"name":"Latvia","code":"LV","phoneCode":"+371"},{"name":"Lebanon","code":"LB","phoneCode":"+961"},{"name":"Lesotho","code":"LS","phoneCode":"+266"},{"name":"Liberia","code":"LR","phoneCode":"+231"},{"name":"Libya","code":"LY","phoneCode":"+218"},{"name":"Liechtenstein","code":"LI","phoneCode":"+423"},{"name":"Lithuania","code":"LT","phoneCode":"+370"},{"name":"Luxembourg","code":"LU","phoneCode":"+352"},{"name":"Macao SAR China","code":"MO","phoneCode":"+853"},{"name":"Madagascar","code":"MG","phoneCode":"+261"},{"name":"Malawi","code":"MW","phoneCode":"+265"},{"name":"Malaysia","code":"MY","phoneCode":"+60"},{"name":"Maldives","code":"MV","phoneCode":"+960"},{"name":"Mali","code":"ML","phoneCode":"+223"},{"name":"Malta","code":"MT","phoneCode":"+356"},{"name":"Marshall Islands","code":"MH","phoneCode":"+692"},{"name":"Martinique","code":"MQ","phoneCode":"+596"},{"name":"Mauritania","code":"MR","phoneCode":"+222"},{"name":"Mauritius","code":"MU","phoneCode":"+230"},{"name":"Mayotte","code":"YT","phoneCode":"+262"},{"name":"Mexico","code":"MX","phoneCode":"+52"},{"name":"Micronesia","code":"FM","phoneCode":"+691"},{"name":"Moldova","code":"MD","phoneCode":"+373"},{"name":"Monaco","code":"MC","phoneCode":"+377"},{"name":"Mongolia","code":"MN","phoneCode":"+976"},{"name":"Montenegro","code":"ME","phoneCode":"+382"},{"name":"Montserrat","code":"MS","phoneCode":"+1"},{"name":"Morocco","code":"MA","phoneCode":"+212"},{"name":"Mozambique","code":"MZ","phoneCode":"+258"},{"name":"Myanmar (Burma)","code":"MM","phoneCode":"+95"},{"name":"Namibia","code":"NA","phoneCode":"+264"},{"name":"Nauru","code":"NR","phoneCode":"+674"},{"name":"Nepal","code":"NP","phoneCode":"+977"},{"name":"Netherlands","code":"NL","phoneCode":"+31"},{"name":"New Caledonia","code":"NC","phoneCode":"+687"},{"name":"New Zealand","code":"NZ","phoneCode":"+64"},{"name":"Nicaragua","code":"NI","phoneCode":"+505"},{"name":"Niger","code":"NE","phoneCode":"+227"},{"name":"Nigeria","code":"NG","phoneCode":"+234"},{"name":"Niue","code":"NU","phoneCode":"+683"},{"name":"Norfolk Island","code":"NF","phoneCode":"+672"},{"name":"Northern Mariana Islands","code":"MP","phoneCode":"+1"},{"name":"North Korea","code":"KP","phoneCode":"+850"},{"name":"North Macedonia","code":"MK","phoneCode":"+389"},{"name":"Norway","code":"NO","phoneCode":"+47"},{"name":"Oman","code":"OM","phoneCode":"+968"},{"name":"Pakistan","code":"PK","phoneCode":"+92"},{"name":"Palau","code":"PW","phoneCode":"+680"},{"name":"Palestinian Territories","code":"PS","phoneCode":"+970"},{"name":"Panama","code":"PA","phoneCode":"+507"},{"name":"Papua New Guinea","code":"PG","phoneCode":"+675"},{"name":"Paraguay","code":"PY","phoneCode":"+595"},{"name":"Peru","code":"PE","phoneCode":"+51"},{"name":"Philippines","code":"PH","phoneCode":"+63"},{"name":"Poland","code":"PL","phoneCode":"+48"},{"name":"Portugal","code":"PT","phoneCode":"+351"},{"name":"Puerto Rico","code":"PR","phoneCode":"+1"},{"name":"Qatar","code":"QA","phoneCode":"+974"},{"name":"Réunion","code":"RE","phoneCode":"+262"},{"name":"Romania","code":"RO","phoneCode":"+40"},{"name":"Russia","code":"RU","phoneCode":"+7"},{"name":"Rwanda","code":"RW","phoneCode":"+250"},{"name":"Samoa","code":"WS","phoneCode":"+685"},{"name":"San Marino","code":"SM","phoneCode":"+378"},{"name":"São Tomé & Príncipe","code":"ST","phoneCode":"+239"},{"name":"Saudi Arabia","code":"SA","phoneCode":"+966"},{"name":"Senegal","code":"SN","phoneCode":"+221"},{"name":"Serbia","code":"RS","phoneCode":"+381"},{"name":"Seychelles","code":"SC","phoneCode":"+248"},{"name":"Sierra Leone","code":"SL","phoneCode":"+232"},{"name":"Singapore","code":"SG","phoneCode":"+65"},{"name":"Sint Maarten","code":"SX","phoneCode":"+1"},{"name":"Slovakia","code":"SK","phoneCode":"+421"},{"name":"Slovenia","code":"SI","phoneCode":"+386"},{"name":"Solomon Islands","code":"SB","phoneCode":"+677"},{"name":"Somalia","code":"SO","phoneCode":"+252"},{"name":"South Africa","code":"ZA","phoneCode":"+27"},{"name":"South Korea","code":"KR","phoneCode":"+82"},{"name":"South Sudan","code":"SS","phoneCode":"+211"},{"name":"Spain","code":"ES","phoneCode":"+34"},{"name":"Sri Lanka","code":"LK","phoneCode":"+94"},{"name":"St. Barthélemy","code":"BL","phoneCode":"+590"},{"name":"St. Helena","code":"SH","phoneCode":"+290"},{"name":"St. Kitts & Nevis","code":"KN","phoneCode":"+1"},{"name":"St. Lucia","code":"LC","phoneCode":"+1"},{"name":"St. Martin","code":"MF","phoneCode":"+590"},{"name":"St. Pierre & Miquelon","code":"PM","phoneCode":"+508"},{"name":"St. Vincent & Grenadines","code":"VC","phoneCode":"+1"},{"name":"Sudan","code":"SD","phoneCode":"+249"},{"name":"Suriname","code":"SR","phoneCode":"+597"},{"name":"Svalbard & Jan Mayen","code":"SJ","phoneCode":"+47"},{"name":"Sweden","code":"SE","phoneCode":"+46"},{"name":"Switzerland","code":"CH","phoneCode":"+41"},{"name":"Syria","code":"SY","phoneCode":"+963"},{"name":"Taiwan","code":"TW","phoneCode":"+886"},{"name":"Tajikistan","code":"TJ","phoneCode":"+992"},{"name":"Tanzania","code":"TZ","phoneCode":"+255"},{"name":"Thailand","code":"TH","phoneCode":"+66"},{"name":"Timor-Leste","code":"TL","phoneCode":"+670"},{"name":"Togo","code":"TG","phoneCode":"+228"},{"name":"Tokelau","code":"TK","phoneCode":"+690"},{"name":"Tonga","code":"TO","phoneCode":"+676"},{"name":"Trinidad & Tobago","code":"TT","phoneCode":"+1"},{"name":"Tristan da Cunha","code":"TA","phoneCode":"+290"},{"name":"Tunisia","code":"TN","phoneCode":"+216"},{"name":"Turkey","code":"TR","phoneCode":"+90"},{"name":"Turkmenistan","code":"TM","phoneCode":"+993"},{"name":"Turks & Caicos Islands","code":"TC","phoneCode":"+1"},{"name":"Tuvalu","code":"TV","phoneCode":"+688"},{"name":"U.S. Virgin Islands","code":"VI","phoneCode":"+1"},{"name":"Uganda","code":"UG","phoneCode":"+256"},{"name":"Ukraine","code":"UA","phoneCode":"+380"},{"name":"United Arab Emirates","code":"AE","phoneCode":"+971"},{"name":"United Kingdom","code":"GB","phoneCode":"+44"},{"name":"United States","code":"US","phoneCode":"+1"},{"name":"Uruguay","code":"UY","phoneCode":"+598"},{"name":"Uzbekistan","code":"UZ","phoneCode":"+998"},{"name":"Vanuatu","code":"VU","phoneCode":"+678"},{"name":"Vatican City","code":"VA","phoneCode":"+39"},{"name":"Venezuela","code":"VE","phoneCode":"+58"},{"name":"Vietnam","code":"VN","phoneCode":"+84"},{"name":"Wallis & Futuna","code":"WF","phoneCode":"+681"},{"name":"Western Sahara","code":"EH","phoneCode":"+212"},{"name":"Yemen","code":"YE","phoneCode":"+967"},{"name":"Zambia","code":"ZM","phoneCode":"+260"},{"name":"Zimbabwe","code":"ZW","phoneCode":"+263"}]},"showTitle":false,"captchaEnabled":false,"buttonVariant":"","objectName":"f12a49caf7e95223f9de","formFields":[{"type":"email","id":"email-yui_3_17_2_1_1553888888520_3745","locked":false,"title":"Your Email","description":"","placeholder":"","required":true,"email":true},{"required":true,"locked":false,"description":"","id":"website-d3c564b2-bbc4-4986-838b-eff60dfef870","website":true,"type":"website","placeholder":"","title":"Link to Video"},{"required":false,"locked":false,"description":"","id":"textarea-5473e906-802a-45e9-9087-0413381197cc","textarea":true,"type":"textarea","placeholder":"","title":"Tell Us Why You Like it"}],"captchaAlignment":1,"lightboxHandleText":"","localizedStrings":{"validation":{"noValidSelection":"A valid selection must be made.","invalidEmail":"Email addresses should follow the format user@domain.com.","invalidUrl":"Must be a valid URL.","invalidListLength":"Value should be {0} elements long.","allEmpty":"Please fill out at least one form field.","stringTooLong":"Value should have a length no longer than {0}.","missingRequiredQuestion":"Missing a required question.","invalidQuestion":"Contained an invalid question.","captchaFailure":"Captcha validation failed. Please try again.","containsInvalidKey":"{0} contains an invalid key.","stringTooShort":"Value should have a length of at least {0}.","invalidTwitterUsername":"Must be a valid Twitter username.","valueOutsideRange":"Value must be in the range {0} to {1}.","invalid":"{0} is not valid.","invalidPassword":"Passwords should not contain whitespace.","missingRequiredSubfields":"{0} is missing required subfields: {1}","invalidCurrency":"Currency value should be formatted like 1234 or 123.99.","invalidMapSize":"Value should contain exactly {0} elements.","formErrors":"Form Errors","containsInvalidValue":"{0} contains an invalid value.","subfieldsRequired":"All fields in {0} are required.","formSubmissionFailed":"Form submission failed. Review the following information: {0}.","invalidCountryCode":"Country code should have an optional plus and up to 4 digits.","invalidUnsignedNumber":"Numbers must contain only digits and no other characters.","invalidName":"Valid names contain only letters, numbers, spaces, ', or - characters.","invalidDate":"This is not a real date.","required":"{0} is required.","invalidStringLength":"Value should be {0} characters long."},"submit":"Submit","status":{"title":"{@} Block","learnMore":"Learn more"},"name":{"firstName":"First Name","lastName":"Last Name"},"address":{"country":"Country","zipPostalCode":"Zip/Postal Code","address2":"Address 2","address1":"Address 1","city":"City","stateProvince":"State/Province"},"lightbox":{"openForm":"Open Form"},"date":{"day":"Day","month":"Month","yyyy":"YYYY","year":"Year","dd":"DD","mm":"MM"},"likert":{"agree":"Agree","disagree":"Disagree","stronglyDisagree":"Strongly Disagree","stronglyAgree":"Strongly Agree","neutral":"Neutral"},"time":{"am":"AM","second":"Second","amPm":"AM/PM","pm":"PM","minute":"Minute","hour":"Hour"},"email":{"signUp":"Sign up for news and updates"},"cannotSubmitDemoForm":"This is a demo form and cannot be submitted.","notFound":"Form not found.","phone":{"country":"Country","number":"Number","prefix":"Prefix","areaCode":"Area Code","line":"Line"},"required":"(required)","submitError":"Unable to submit form. Please try again later.","invalidData":"Invalid form data."}}</script>
+  <div id="form-submission-html-6412bd993ccc656c266647df" class="sqs-form-block-submission-html" data-submission-html=""></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="form-wrapper"><form autocomplete="on" class="react-form-contents" novalidate=""><div></div><div class="field-list"><div class="form-item field email required" id="email-yui_3_17_2_1_1553888888520_3745" data-dynamic-strings=""><label for="email-yui_3_17_2_1_1553888888520_3745-field" class="title sw596tE2eJwBg5n24nrn"><div class="FWefosxH8nVEa4wj4pnA"><div class="Ll97LTNPPGVBmrcIGQyT"><span>Your Email</span><span class="description required">(required)</span></div></div></label><input aria-invalid="false" aria-required="true" autocomplete="false" class="MUomU4fr3iSZrhBNTmN0 exokPtqDa3qLy42TT3gA" id="email-yui_3_17_2_1_1553888888520_3745-field" placeholder="" type="email" value=""></div><div class="form-item field website required" id="website-d3c564b2-bbc4-4986-838b-eff60dfef870" data-dynamic-strings=""><label for="website-d3c564b2-bbc4-4986-838b-eff60dfef870-field" class="title sw596tE2eJwBg5n24nrn"><div class="FWefosxH8nVEa4wj4pnA"><div class="Ll97LTNPPGVBmrcIGQyT"><span>Link to Video</span><span class="description required">(required)</span></div></div></label><input aria-invalid="false" aria-required="true" autocomplete="false" class="MUomU4fr3iSZrhBNTmN0 exokPtqDa3qLy42TT3gA" id="website-d3c564b2-bbc4-4986-838b-eff60dfef870-field" placeholder="" type="text" value="" style="padding-left: 68.9531px;"><span class="kKfgxgToHGnNZB8OQoa7 arLgMX7Ahv32ijUyaNyd form-input-prefix">http://</span></div><div class="form-item field textarea" id="textarea-5473e906-802a-45e9-9087-0413381197cc" data-dynamic-strings=""><label for="textarea-5473e906-802a-45e9-9087-0413381197cc-field" class="title sw596tE2eJwBg5n24nrn"><div class="FWefosxH8nVEa4wj4pnA"><div class="Ll97LTNPPGVBmrcIGQyT"><span>Tell Us Why You Like it</span></div></div></label><textarea id="textarea-5473e906-802a-45e9-9087-0413381197cc-field" aria-invalid="false" class="kMu9QzOz_QIloQJjEG9e" placeholder=""></textarea></div></div><div class="form-button-wrapper form-button-wrapper--align-left"><button type="submit" class="button sqs-system-button sqs-editable-button sqs-button-element--primary NkyzQqS7X0JjKckdVqSS">Submit</button></div></form></div>
+</div></div></div><div class="fe-block fe-block-10406bd5626f30a39c13" id="yui_3_17_2_1_1703002500435_508"><div class="sqs-block image-block sqs-block-image sqs-stretched sqs-text-ready" data-block-type="5" id="block-10406bd5626f30a39c13"><div class="sqs-block-content" id="yui_3_17_2_1_1703002500435_507" style="height: 100%; width: 100%;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="
+        image-block-outer-wrapper
+        layout-caption-below
+        design-layout-fluid
+        image-position-left
+        combination-animation-none
+        individual-animation-none
+      " data-test="image-block-fluid-outer-wrapper" id="yui_3_17_2_1_1703002500435_506">
+      <div class="fluid-image-animation-wrapper sqs-image sqs-block-alignment-wrapper preClip clipIn" data-animation-role="image" id="yui_3_17_2_1_1703002500435_505" style="transition-timing-function: ease; transition-duration: 0.65s; transition-delay: 0.719512s; animation-duration: 0.65s;">
+        <div class="fluid-image-container sqs-image-content" style="overflow: hidden;-webkit-mask-image: -webkit-radial-gradient(white, black);position: relative;width: 100%;height: 100%;" id="yui_3_17_2_1_1703002500435_504">
+
+
+
+
+
+
+
+              <div class="content-fill" id="yui_3_17_2_1_1703002500435_501">
+
+
+
+
+
+
+
+            <img data-stretch="true" data-src="https://images.squarespace-cdn.com/content/v1/6411cba29f7f4b4a7e9609c8/e5acede9-9b39-4359-87ee-b076744871ea/01163-2240634565-Marmont+Hill%2C___.jpg" data-image="https://images.squarespace-cdn.com/content/v1/6411cba29f7f4b4a7e9609c8/e5acede9-9b39-4359-87ee-b076744871ea/01163-2240634565-Marmont+Hill%2C___.jpg" data-image-dimensions="1024x1024" data-image-focal-point="0.5,0.5" alt="" data-load="false" elementtiming="system-image-block" src="https://images.squarespace-cdn.com/content/v1/6411cba29f7f4b4a7e9609c8/e5acede9-9b39-4359-87ee-b076744871ea/01163-2240634565-Marmont+Hill%2C___.jpg" width="1024" height="1024" sizes="100vw" style="display:block;object-fit: cover; object-position: 50% 50%" srcset="https://images.squarespace-cdn.com/content/v1/6411cba29f7f4b4a7e9609c8/e5acede9-9b39-4359-87ee-b076744871ea/01163-2240634565-Marmont+Hill%2C___.jpg?format=100w 100w, https://images.squarespace-cdn.com/content/v1/6411cba29f7f4b4a7e9609c8/e5acede9-9b39-4359-87ee-b076744871ea/01163-2240634565-Marmont+Hill%2C___.jpg?format=300w 300w, https://images.squarespace-cdn.com/content/v1/6411cba29f7f4b4a7e9609c8/e5acede9-9b39-4359-87ee-b076744871ea/01163-2240634565-Marmont+Hill%2C___.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/6411cba29f7f4b4a7e9609c8/e5acede9-9b39-4359-87ee-b076744871ea/01163-2240634565-Marmont+Hill%2C___.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/6411cba29f7f4b4a7e9609c8/e5acede9-9b39-4359-87ee-b076744871ea/01163-2240634565-Marmont+Hill%2C___.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/6411cba29f7f4b4a7e9609c8/e5acede9-9b39-4359-87ee-b076744871ea/01163-2240634565-Marmont+Hill%2C___.jpg?format=1500w 1500w, https://images.squarespace-cdn.com/content/v1/6411cba29f7f4b4a7e9609c8/e5acede9-9b39-4359-87ee-b076744871ea/01163-2240634565-Marmont+Hill%2C___.jpg?format=2500w 2500w" loading="lazy" decoding="async" data-loader="sqs">
+
+
+
+
+            <div class="fluidImageOverlay"></div>
+
+              </div>
+
+
+
+        </div>
+      </div>
+    </div>
+    <style>
+      .sqs-block-image .sqs-block-content {
+        height: 100%;
+        width: 100%;
+      }
+
+
+        .fe-block-10406bd5626f30a39c13 .fluidImageOverlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          mix-blend-mode: normal;
+
+
+
+
+
+            opacity: 0;
+
+        }
+
+    </style>
+
+
+
+
+
+
+</div></div></div></div></div>
+    </div>
+
+  </div>
+
+</section>
+
+
+    </article>
+{% endblock %}

@@ -55,12 +55,8 @@ function getCookie(name) {
 
 function handlesearch() {
     'use strict';
-    // var form = document.getElementById('modifyinfo'); // 获取您的表单元素，确保它有 id="profile-form"
-
-    // var id = document.getElementById('userid').value;
     var content = document.getElementById('content').value;
     console.log("search_content；"+content);
-    // console.log(id, balance);
 
     fetch('/admin/main/', {
         method: 'POST',
@@ -83,44 +79,6 @@ function handlesearch() {
             }
         })
         .catch(error => console.error('Error:', error));
-    //     .then(data => {
-    //     if (data.error) {
-    //         alert(data.error);
-    //         // 处理错误
-    //     } else if (Array.isArray(data.user_infos)) {  // Check if user_infos is an array
-    //         // 获取表格的 tbody 元素
-    //         var tbody = document.getElementById('dataList').getElementsByTagName('tbody')[0];
-    //
-    //         // 清空当前表格内容
-    //         tbody.innerHTML = '';
-    //
-    //         // 处理用户信息
-    //         var userInfos = data.user_infos;
-    //         console.log('userInfos',userInfos);
-    //         userInfos.forEach(userInfo => {
-    //             // 创建新的表格行
-    //             var row = tbody.insertRow();
-    //
-    //             // 插入单元格并赋值
-    //             var cellId = row.insertCell(0);
-    //             cellId.innerHTML = userInfo.id;
-    //
-    //
-    //             var celluserName = row.insertCell(1);
-    //             celluserName.innerHTML = userInfo.name;
-    //
-    //             var cellName = row.insertCell(2);
-    //             cellName.innerHTML = userInfo.name;
-    //
-    //             // 插入其他单元格...
-    //         });
-    //
-    //         // 进行其他前端处理...
-    //     } else {
-    //         console.error('Invalid user_infos data:', data.user_infos);
-    //     }
-    // })
-    // .catch(error => console.error('Error:', error));
 
 
 

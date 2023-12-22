@@ -1,8 +1,48 @@
 {% extends 'layout.html' %}
+{#头像部分#}
+{% block avatar %}
+    <div class="ml-profile-card" id="ml-profileCard">
+        <div class="ml-box">
+            <div class="ml-box-inner">
+                <img src="{{ user_avatar }}" alt="Avatar"
+                     class="ml-avatar"
+                     id="ml-avatar">
+            </div>
+
+            <div class="ml-info" id="ml-info">
+
+                <p>姓名:{{ user_name }}</p>
+                <p>余额:{{ user_balance }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{#登录退出部分#}
+{% block sign %}
+    <div class="header-actions-action header-actions-action--cta"
+         data-animation-role="header-element">
+        <a class="btn btn--border theme-btn--primary-inverse sqs-button-element--primary"
+           href="{% url 'user_home' %}">
+            SIGN OUT
+        </a>
+        <a class="btn btn--border theme-btn--primary-inverse sqs-button-element--primary"
+           href="/user/info/{{ user_id }}">
+            Account
+        </a>
+    </div>
+{% endblock %}
 
 
 {% block main %}
 <article class="sections" id="sections" data-page-sections="6411d607b1520f41a6c3625b">
+
+
+
+
+
+
+
 
 
 <section data-test="page-section" data-section-theme="light" class="page-section has-section-divider
