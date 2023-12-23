@@ -7,7 +7,7 @@ from django.core.cache import cache
 from datetime import datetime, timedelta
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-# from app01.image_recognition.ResNet50 import recognize_image
+from app01.image_recognition.ResNet50 import recognize_image
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.db.models import Min, Count
@@ -458,11 +458,11 @@ def user_func_image_strengthen(request, user_id):
             if avatar:
                 fs = FileSystemStorage()
                 filename = fs.save(avatar.name, avatar)
-                exe_path = './app01/realesrgan-ncnn-vulkan-20220424-windows/realesrgan-ncnn-vulkan.exe'
+                linux_path = './app01/realesrgan-ncnn-vulkan-20220424-ubuntu/realesrgan-ncnn-vulkan'
                 input_image = './app01/static/img/' + avatar.name
                 output_image = './app01/static/img/output_' + avatar.name
                 model_name = 'realesrgan-x4plus'
-                command = [exe_path, '-i', input_image, '-o', output_image, '-n', model_name]
+                command = [linux_path, '-i', input_image, '-o', output_image, '-n', model_name]
                 subprocess.run(command, check=True)
                 output_image_url = '/static/img/output_' + avatar.name
                 return JsonResponse({'message': output_image_url})
