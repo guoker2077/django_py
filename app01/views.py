@@ -50,11 +50,12 @@ def user_add(request):
         if action == 'username_login':
             username = data.get('username')
             password = data.get('password')
-            #print("username and password", username, password)
+            print("username and password", username, password)
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
                 redirect_url = reverse('user_home_alreadyin', kwargs={'user_id': user.id})
+                print("666")
                 return JsonResponse({'message': redirect_url})
             else:
                 return JsonResponse({'error': '登录失败，用户名或密码不正确'}, status=400)
@@ -89,7 +90,6 @@ def user_add(request):
             password = data.get('password')
             phone = data.get('phone')
             input_code = data.get('code')
-            #print(type(username), type(password), type(phone))
 
             # 从缓存中获取正确的验证码
 
@@ -102,11 +102,13 @@ def user_add(request):
             # 检查验证码是否正确
             #print("has sent code")
             if correct_code is None or str(correct_code) != input_code:
-                #print("验证码错误")
+                print("验证码错误")
                 return JsonResponse({'error': '验证码错误'}, status=400)
-            #print("验证码正确")
+            print("验证码正确")
+            # 创建用户逻辑
+
             # 创建auth_user记录
-            user, boo = User.objects.get_or_create(username=username, password=password)
+            user = User.objects.create_user(username=username, password=password)
 
             # 创建app01_userinfo记录
             userinfo = UserInfo(user=user, phone=phone)
@@ -114,6 +116,7 @@ def user_add(request):
             userinfo.save()
             redirect_url = '/user/add'
             return JsonResponse({'message': redirect_url})
+
 
         # 用户登录处发送验证码的逻辑
         elif action == 'send_code_login':
@@ -380,7 +383,7 @@ def user_info(request, user_id):
 
 #未登录的主页
 def user_home(req):
-    return render(req, 'Home_page.html')
+    return render(req, 'home_page.html')
 
 #用户已经登录的主页
 def user_home_alreadyin(request, user_id):
