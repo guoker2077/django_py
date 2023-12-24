@@ -462,10 +462,13 @@ def user_func_image_strengthen(request, user_id):
                 fs = FileSystemStorage()
                 filename = fs.save(avatar.name, avatar)
                 linux_path = './app01/realesrgan-ncnn-vulkan-20220424-ubuntu/realesrgan-ncnn-vulkan'
+                #windows_path = './app01/realesrgan-ncnn-vulkan-20220424-windows/realesrgan-ncnn-vulkan.exe'
+                #如果在windows环境允许，轻改为windows_path
                 input_image = './app01/static/img/' + avatar.name
                 output_image = './app01/static/img/output_' + avatar.name
                 model_name = 'realesrgan-x4plus'
                 command = [linux_path, '-i', input_image, '-o', output_image, '-n', model_name]
+                #command = [windows_path, '-i', input_image, '-o', output_image, '-n', model_name]
                 subprocess.run(command, check=True)
                 output_image_url = '/static/img/output_' + avatar.name
                 return JsonResponse({'message': output_image_url})
