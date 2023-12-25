@@ -463,7 +463,7 @@ def user_func_image_strengthen(request, user_id):
                 filename = fs.save(avatar.name, avatar)
                 linux_path = './app01/realesrgan-ncnn-vulkan-20220424-ubuntu/realesrgan-ncnn-vulkan'
                 #windows_path = './app01/realesrgan-ncnn-vulkan-20220424-windows/realesrgan-ncnn-vulkan.exe'
-                #如果在windows环境允许，轻改为windows_path
+                #如果在windows环境运行，请改为windows_path
                 input_image = './app01/static/img/' + avatar.name
                 output_image = './app01/static/img/output_' + avatar.name
                 model_name = 'realesrgan-x4plus'
